@@ -1,0 +1,31 @@
+.UserRegField{
+    display: flex;
+    flex-direction: column;
+    width:100%;
+}
+
+.inputLabels{
+    font-size: 13px;
+    color:gray;
+}
+
+.inputFields{
+    padding: 15px;
+    max-width: 100%;
+    border-radius: 5px;
+    border: 1px solid grey;
+}
+
+.errorMessages {
+    max-width: 100%;
+    overflow: auto;
+    word-wrap: break-word;
+    font-size: 12px;
+}
+
+span{
+    font-size: 12px;
+    padding: 3px;
+    color: red;
+    display:none;
+}
