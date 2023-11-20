@@ -1,0 +1,10 @@
+.error-messages {
+    min-height: 30px;
+    color: red;
+    margin-bottom: 10px;
+}
+
+.error-text {
+    margin: 0;
+    padding: 0;
+}

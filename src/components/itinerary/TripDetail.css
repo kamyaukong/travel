@@ -1,88 +1,39 @@
 /* TripDetail.css */
 .trip-detail {
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin: 20px;
-  }
-  
-  .date-range {
-    font-size: 0.9em;
-    color: #666;
-    margin-bottom: 20px;
-  }
-  
-  .activities, .flights, .hotels {
-    margin-bottom: 20px;
-  }
-  
-  .activity-item .icon-container {
-    width: 50px;
-    height: 50px;
-    margin-right: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 20px;
+}
 
-  .activity-item, .flight-item, .hotel-item {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    border: 1px solid #eee;
-    margin-bottom: 10px;
-    border-radius: 4px;
-    position: relative;
-  }
+.menu-bar {
+  cursor: pointer;
+}
 
-  .activity-item label,
-  .flight-item label,
-  .hotel-item label {
-    display: block;
-    margin-bottom: 10px;
-  }
+/*
+.activities, .flights, .hotels {
+  margin-bottom: 20px;
+}
+*/
 
-  .activity-item input 
-  .flight-item input,
-  .hotel-item input {
-    width: 100%;
-    padding: 5px;
-    margin-top: 5px;
-    margin-right: 10px;
-  }
-  
-  .icon-container {
-    width: 50px;
-    height: 50px;
-    margin-right: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .activity-info, .flight-info, .hotel-info {
-    flex-grow: 1;
-  }
-  
-  .buttons button {
-    margin-right: 10px;
-    cursor: pointer;
-    padding: 5px 10px;
-    border: none;
-    border-radius: 4px;
-    background-color: #007bff;
-    color: white;
-  }
-  
-  .buttons button:hover {
-    opacity: 0.9;
-  }
-  
-  .delete-icon {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    cursor: pointer;
-  }
-  
+.date-range {
+  font-size: 0.9em;
+  color: #666;
+  margin-bottom: 20px;
+}
+/*
+.buttons button {
+  margin-right: 10px;
+  cursor: pointer;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: white;
+}
+
+.buttons button:hover {
+  opacity: 0.9;
+}
+*/

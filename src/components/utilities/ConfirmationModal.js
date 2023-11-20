@@ -1,4 +1,4 @@
-// ConfirmationModal.js
+// /src/components/itinerary/utilities/ConfirmationModal.js
 import React from 'react';
 import Modal from 'react-modal';
 import './ConfirmationModal.css';
@@ -6,12 +6,12 @@ import './ConfirmationModal.css';
 // Prevents screen readers from reading background content
 Modal.setAppElement('#root');
 
-const ConfirmationModal = ({ isOpen, onRequestClose, onConfirm, message }) => {
+export const ConfirmationModal = ({ isOpen, onRequestClose, onConfirm, message }) => {
   return (
     <Modal
       isOpen={isOpen}
       onRequestClose={onRequestClose}
-      contentLabel="Confirmation Modal"
+      contentLabel="Confirm Action"
       className="modal-content"
       overlayClassName="modal-overlay"
     >
@@ -22,5 +22,3 @@ const ConfirmationModal = ({ isOpen, onRequestClose, onConfirm, message }) => {
     </Modal>
   );
 };
-
-export default ConfirmationModal;
