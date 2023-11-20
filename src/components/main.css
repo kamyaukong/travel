@@ -1,0 +1,16 @@
+/* main.css */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  nav h1 {
+    /* styles for your title */
+  }
+  
+  nav button {
+    /* unified button styles */
+  }
+
+  
