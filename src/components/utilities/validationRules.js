@@ -21,10 +21,12 @@ const activityValidationRules = (item) => {
     return errors;
 };
 
-const itineraryValidationRules = (item) => {
+const itineraryValidationRules = (itinerary) => {
     let errors = [];
-    if (!item.name) errors.push("Itinerary name is required");
-    // Add other activity-specific validation checks here
+    if (!itinerary.name) errors.push("Itinerary name is required");
+    //if (!itinerary.startDate) errors.push("Start date is required");
+    //if (!itinerary.endDate) errors.push("End date is required");
+    // Add other itinerary-specific validation checks here
     return errors;
 };
 

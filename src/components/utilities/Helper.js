@@ -7,8 +7,14 @@
   };
 
   export const formatDateOnly = (dateString) => {
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-    return new Date(dateString).toLocaleDateString(undefined, options);
+    if (!dateString) return "";
+    const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
+    if (dateString.includes('T')) {
+      const [datePart] = dateString.split('T');
+      return new Date(datePart).toLocaleDateString(undefined, options);
+    } else {
+      return new Date(dateString).toLocaleDateString(undefined, options);
+    }
   };
 
   // Helper function to sort items by date

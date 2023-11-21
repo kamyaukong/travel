@@ -1,9 +1,13 @@
 // /src/components/itinerary/ItemFormController.js
-import React, { useState, useEffect } from 'react';
-import Modal from 'react-modal';
+import React, { useState } from 'react';
+import ReactModal from 'react-modal';
 import validationRules from '../utilities/validationRules';
+import ItemFormController from './ItemFormController';
+import { itinerarySchema } from './ItemFormView';
 
-export const EditItineraryModal = ({ isOpen, item, onSave, onClose }) => {
+import './EditItineraryModal.css';
+
+export const EditItineraryModal = ({ isOpen, item, onSave, onRequestClose }) => {
     const [editedItinerary, setEditedItinerary] = useState(item);
     const [errors, setErrors] = useState([]);
 
@@ -20,76 +24,29 @@ export const EditItineraryModal = ({ isOpen, item, onSave, onClose }) => {
           return;
         }
         onSave(editedItinerary);
-        onClose();
+        onRequestClose();
       };
 
     return (
-        <Modal
+        <ReactModal
             isOpen={isOpen}
-            onRequestClose={onClose}
             contentLabel="Edit Itinerary"
-            className="modal-content"
-            overlayClassName="modal-overlay"
-            >
-            <div className="edit-modal">
-                <div>
-                    <label>Name:
-                        <input 
-                            type="text" 
-                            name="name" 
-                            value={editedItinerary.name} 
-                            onChange={handleChange} 
-                        />
-                    </label>
-                    <label>From:
-                        <input 
-                            type="date" 
-                            name="startDate" 
-                            value={editedItinerary.startDate} 
-                            onChange={handleChange} 
-                        />
-                    </label>
-                    <label>to:
-                        <input 
-                            type="date" 
-                            name="endDate" 
-                            value={editedItinerary.endDate} 
-                            onChange={handleChange} 
-                        />
-                    </label>
-                    <label>adults:
-                        <input 
-                            type="number" 
-                            name="adults" 
-                            value={editedItinerary.adults} 
-                            onChange={handleChange} 
-                        />
-                    </label>
-                    <label>Child/Children:
-                        <input 
-                            type="number" 
-                            name="children" 
-                            value={editedItinerary.children} 
-                            onChange={handleChange} 
-                        />
-                    </label>
-                    <label>Budget:
-                        <input 
-                            type="number" 
-                            name="budget" 
-                            value={editedItinerary.budget} 
-                            onChange={handleChange} 
-                        />
-                    </label>
-                </div>
-                <div className="error-messages">
-                    {errors.map((error, index) => (
-                        <p key={index} className="error-text">{error}</p>
-                    ))}
-                </div>
-                <button onClick={handleSubmit}>Save</button>
-                <button onClick={onClose}>Cancel</button>
+            className="modal-editItinerary"
+            overlayClassName="modal-overlay-editItinerary"
+            onRequestClose={onRequestClose}
+        >
+            <ItemFormController
+                item={editedItinerary}
+                schema={itinerarySchema}
+                handleChange={handleChange}
+            />
+            <div className="error-messages">
+                {errors.map((error, index) => (
+                    <p key={index} className="error-text">{error}</p>
+                ))}
             </div>
-        </Modal>
+            <button onClick={handleSubmit}>Save</button>
+            <button onClick={onRequestClose}>Cancel</button>
+        </ReactModal>
     );
 };

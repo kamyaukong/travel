@@ -1,30 +1,30 @@
 // /src/itinerary/AddItemModal.js
 import React, { useState } from 'react';
-import Modal from 'react-modal';
+import ReactModal from 'react-modal';
 import ItemFormController from './ItemFormController';
 import { flightSchema, hotelSchema, activitySchema } from './ItemFormView';
 import validationRules from '../utilities/validationRules';
 
 import './AddItemModal.css';
 
-export const AddItemModal = ({ isOpen, itemType, onAddItem, onClose }) => {
-  const [newItem, setNewItem] = useState({});
+export const AddItemModal = ({ isOpen, itemType, onAddItem, onRequestClose }) => {
+  const [itemToAdd, setNewItem] = useState({});
   const [errors, setErrors] = useState([]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setNewItem({ ...newItem, [name]: value });
+    setNewItem({ ...itemToAdd, [name]: value });
     setErrors([]); // Clear error messages when user starts typing
   };
 
   const handleSubmit = () => {
-    const validationErrors = validationRules[itemType](newItem);
+    const validationErrors = validationRules[itemType](itemToAdd);
     if (validationErrors && validationErrors.length > 0) {
       setErrors(validationErrors);
       return;
     }
-    onAddItem(itemType, newItem);
-    onClose();
+    onAddItem(itemType, itemToAdd);
+    onRequestClose();
   };
 
   let schema;
@@ -43,17 +43,17 @@ export const AddItemModal = ({ isOpen, itemType, onAddItem, onClose }) => {
   }
 
   return (
-    <Modal 
+    <ReactModal 
       isOpen={isOpen} 
-      onRequestClose={onClose} 
+      onRequestClose={onRequestClose} 
       contentLabel="New Item"
-      className="modal-content"
-      overlayClassName="modal-overlay"
+      className="modal-additem"
+      overlayClassName="modal-overlay-additem"
     >
       {schema && (
         <>
           <ItemFormController
-            item={newItem}
+            item={itemToAdd}
             schema={schema}
             handleChange={handleChange}
           />
@@ -63,9 +63,9 @@ export const AddItemModal = ({ isOpen, itemType, onAddItem, onClose }) => {
               ))}
           </div>
           <button onClick={handleSubmit}>Add</button>
-          <button onClick={onClose}>Cancel</button>
+          <button onClick={onRequestClose}>Cancel</button>
         </>
       )}
-    </Modal>
+    </ReactModal>
   );
 };

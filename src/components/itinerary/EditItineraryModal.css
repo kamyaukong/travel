@@ -1,12 +1,5 @@
-.modal-additem {
-  background: #fefefe;
-  padding: 20px;
-  border-radius: 4px;
-  max-width: 500px;
-  width: 100%;
-}
-
-.modal-overlay-additem {
+/* /src/components/itinerary/utilities/ConfirmationModal.css */
+.modal-overlay-editItinerary {
     position: fixed;
     top: 0;
     left: 0;
@@ -16,9 +9,19 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 1000;
+}
+  
+.modal-editItinerary {
+  background: #fefefe;
+  padding: 20px;
+  border-radius: 4px;
+  max-width: 500px;
+  width: 100%;
+  z-index: 1001;
 }
 
-.itinerary-info {
+.editItinerary-info {
   display: flex;
   align-items: center;
   padding: 5px;
@@ -29,12 +32,12 @@
 }
 
 .error-messages {
-  min-height: 30px;
-  color: red;
-  margin-bottom: 10px;
+    min-height: 30px;
+    color: red;
+    margin-bottom: 10px;
 }
 
 .error-text {
-  margin: 0;
-  padding: 0;
+    margin: 0;
+    padding: 0;
 }

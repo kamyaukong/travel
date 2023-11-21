@@ -1,3 +1,4 @@
+/*
 .activity-item {
     width: 50px;
     height: 50px;
@@ -7,16 +8,8 @@
     align-items: center;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+*/
 
-.itinerary-item {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    border: 1px solid #eee;
-    margin-bottom: 10px;
-    border-radius: 4px;
-    position: relative;
-}
 
 /*
 .icon-container {
@@ -28,10 +21,11 @@
     align-items: center;
 }
 */
+/*
 .itinerary-info {
     flex-grow: 1;
 }
-
+*/
 label {
     display: block;
     margin-bottom: 10px;
