@@ -1,35 +1,37 @@
 // TripDetail.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import Modal from 'react-modal';
 import { useParams } from 'react-router-dom';
-import { formatDate } from '../utilities/Helper';
+import { formatDateOnly } from '../utilities/Helper';
 import ItemFormController from './ItemFormController';
-import { flightSchema } from './ItemFormModel';
-import { hotelSchema } from './ItemFormModel';
-import { activitySchema } from './ItemFormModel';
+import { flightSchema } from './ItemFormView';
+import { hotelSchema } from './ItemFormView';
+import { activitySchema } from './ItemFormView';
 import { AddItemModal } from './AddItemModal';
-import { Modal } from '../utilities/Modal';
-import { ConfirmationModal } from '../utilities/ConfirmationModal';
 import { getSortDateForItem } from '../utilities/Helper';
-
+import { ConfirmationModal } from '../utilities/ConfirmationModal';
+import { EditItineraryModal } from './EditItineraryModal';
 import './TripDetail.css';
 
 const TripDetail = () => {
-  const [itineraryHeader, setitineraryHeader] = useState(null);
+  const [itineraryHeader, setItineraryHeader] = useState(null);
   const [itineraryItems, setItineraryItems] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [itemToDelete, setItemToDelete] = useState({ type: '', index: -1 });
   const [isDirty, setIsDirty] = useState(false);
   const { id } = useParams();
   const [showAddItemModal, setShowAddItemModal] = useState(false);
-  const [addItemType, setAddItemType] = useState(null); // Add this line
+  const [addItemType, setAddItemType] = useState(null);
+  const [editingItinerary, setEditingItinerary] = useState(null);
+  const [isEditItineraryModalOpen, setIsEditItineraryModalOpen] = useState(false);
 
   // Fetch itinerary details from the Node.JS API
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_API_URL}/itinerary/${id}`)
       .then(response => {
         const { mainDetails, items } = response.data;
-        setitineraryHeader(mainDetails);
+        setItineraryHeader(mainDetails);
         setItineraryItems(items);
       })
       .catch(error => {
@@ -37,13 +39,47 @@ const TripDetail = () => {
       });
   }, [id]);
 
-  /*
-  // Define Modal for Add Item, and Confirma Delete Item
-  const openAddItemModal = (type) => {
-    setAddItemType(type);
-    setShowAddItemModal(true);
+  // Modal process for Itinerary Editing
+  const openEditItineraryModal = () => {
+    console.log("Opening modal, current state:", isEditItineraryModalOpen);
+    setEditingItinerary(itineraryHeader);
+    setIsEditItineraryModalOpen(true);
+    console.log("New state after opening:", isEditItineraryModalOpen);
   };
-  */
+  useEffect(() => {
+    console.log("Modal state changed to:", isEditItineraryModalOpen);
+  }, [isEditItineraryModalOpen]);
+
+  
+  const handleItineraryEdit = (item) => {
+    setEditingItinerary(item);
+    setIsEditItineraryModalOpen(true);
+  };
+
+  const saveEditedItinerary = (updatedItem) => {
+      // Update the item in your state and optionally send an update to the backend
+      // Close the modal after saving
+      console.log("Saving itinerary, current modal state:", isEditItineraryModalOpen);
+
+      setItineraryHeader(updatedItem);
+      setIsEditItineraryModalOpen(false);
+      setEditingItinerary(null);
+      setIsDirty(true);
+      console.log("New state after saving:", isEditItineraryModalOpen);
+
+  };
+
+  const cancelEditItinerary = () => {
+      // Close the modal without saving changes
+      setIsEditItineraryModalOpen(false);
+  };
+
+  const closeEditItineraryModal = () => {
+    setIsEditItineraryModalOpen(false);
+    setEditingItinerary(null);
+  };
+
+  // Modal process for Delete Confirmation Message Box
   const openModal = (type, index) => {
     setItemToDelete({ type, index });
     setModalIsOpen(true);
@@ -61,12 +97,7 @@ const TripDetail = () => {
     setItineraryItems([...itineraryItems, newItem]);
     setIsDirty(true);
   };
-/*
-  const closeAddItemModal = () => {
-    setShowAddItemModal(false);
-    setAddItemType(null);
-  };
-*/
+
   const closeModal = () => {
     setModalIsOpen(false);
   };
@@ -87,13 +118,6 @@ const TripDetail = () => {
     setIsDirty(true);
   };
 
-  /*
-  const confirmDeletion = () => {
-    deleteItem(itemToDelete.type, itemToDelete.index);
-    closeModal();
-  };
-  */
-
   const saveChanges = async () => {
     try {
       const updateData = { ...itineraryHeader, items: itineraryItems };
@@ -107,8 +131,8 @@ const TripDetail = () => {
     }
   };
 
-  if (!itineraryHeader || !itineraryItems.length) {
-    return <div>Loading...</div>;
+  if (!itineraryHeader) {
+    return <div>Loading itinerary ...</div>;
   }
 
   // Triggered ItemFormController to render details on the main return statement below
@@ -136,10 +160,27 @@ const TripDetail = () => {
 
   return (
     <div className="trip-detail">
-      <h2>{itineraryHeader.name}</h2>
-      <div className="date-range">
-        <h3>From: {formatDate(itineraryHeader.startDate)} to {formatDate(itineraryHeader.endDate)}</h3>
+      <div className="itinerary-header" onClick={openEditItineraryModal}>
+        <h2>{itineraryHeader.name}</h2>
+        <h3 className="date-range">From: {formatDateOnly(itineraryHeader.startDate)} to {formatDateOnly(itineraryHeader.endDate)}</h3>
+        <h3>Adult: {itineraryHeader.adult}</h3><h3>Child: {itineraryHeader.children}</h3>
         <h3>Budget: {itineraryHeader.budget}</h3>
+        <Modal 
+          isOpen={isEditItineraryModalOpen} 
+          onRequestClose={closeEditItineraryModal}
+          contentLabel='Edit Itinerary'
+          className="modal-content"
+          overlayClassName="modal-overlay"
+        >
+          {isEditItineraryModalOpen && (
+          <EditItineraryModal
+              isOpen={isEditItineraryModalOpen}
+              item={editingItinerary}
+              onSave={saveEditedItinerary}
+              onClose={() => setIsEditItineraryModalOpen(false)}
+          />
+          )}
+        </Modal>
       </div>
       {/* Menu Areas: 3 buttons to add new item and [Save] button to save editing changes*/}
       <div className="menu-bar">
@@ -148,7 +189,13 @@ const TripDetail = () => {
         <span onClick={() => { setAddItemType('activity'); setShowAddItemModal(true); }}>🎉</span>
         {isDirty && <button onClick={saveChanges} style={{float: 'right'}}>Save</button>}
       </div>
-      <Modal isOpen={showAddItemModal} handleClose={() => setShowAddItemModal(false)}>
+      <Modal 
+        isOpen={showAddItemModal} 
+        handleClose={() => setShowAddItemModal(false)}
+        contentLabel='Add Item'
+        className="modal-content"
+        overlayClassName="modal-overlay"
+      >
         <AddItemModal 
           isOpen={showAddItemModal}
           itemType={addItemType} 
@@ -157,7 +204,12 @@ const TripDetail = () => {
           />
       </Modal>
       {/* Loop all itinerary items and reuse ItemFormController to render details */}
-      {itineraryItems.map((item, index) => (renderItem(item, index)))}
+      {itineraryItems.length === 0 ? (
+        <div>
+            <p>No items yet. Use icon above to add flights, hotels, or activities to your itinerary.</p>
+        </div>
+        ) : (itineraryItems.map((item, index) => (renderItem(item, index))))
+      }
       {/* Modal: Delete Item Confirmation Message Box */}
       <ConfirmationModal 
               isOpen={modalIsOpen} 

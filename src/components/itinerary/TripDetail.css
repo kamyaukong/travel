@@ -11,6 +11,15 @@
   cursor: pointer;
 }
 
+.itinerary-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
 /*
 .activities, .flights, .hotels {
   margin-bottom: 20px;

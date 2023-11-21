@@ -1,8 +1,9 @@
+// /src/itinerary/AddItemModal.js
 import React, { useState } from 'react';
 import Modal from 'react-modal';
 import ItemFormController from './ItemFormController';
-import { flightSchema, hotelSchema, activitySchema } from './ItemFormModel';
-import validationRules from './validationRules';
+import { flightSchema, hotelSchema, activitySchema } from './ItemFormView';
+import validationRules from '../utilities/validationRules';
 
 import './AddItemModal.css';
 
@@ -18,7 +19,6 @@ export const AddItemModal = ({ isOpen, itemType, onAddItem, onClose }) => {
 
   const handleSubmit = () => {
     const validationErrors = validationRules[itemType](newItem);
-    console.log('validationErrors - itemType:', itemType);
     if (validationErrors && validationErrors.length > 0) {
       setErrors(validationErrors);
       return;
@@ -50,11 +50,6 @@ export const AddItemModal = ({ isOpen, itemType, onAddItem, onClose }) => {
       className="modal-content"
       overlayClassName="modal-overlay"
     >
-      <div className="error-messages">
-          {errors.map((error, index) => (
-              <p key={index} className="error-text">{error}</p>
-          ))}
-      </div>
       {schema && (
         <>
           <ItemFormController
@@ -62,6 +57,11 @@ export const AddItemModal = ({ isOpen, itemType, onAddItem, onClose }) => {
             schema={schema}
             handleChange={handleChange}
           />
+          <div className="error-messages">
+              {errors.map((error, index) => (
+                  <p key={index} className="error-text">{error}</p>
+              ))}
+          </div>
           <button onClick={handleSubmit}>Add</button>
           <button onClick={onClose}>Cancel</button>
         </>

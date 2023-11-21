@@ -1,4 +1,4 @@
-// /src/components/itinerary/validationRules.js
+// /src/components/utilities/validationRules.js
 
 const flightValidationRules = (item) => {
     let errors = [];
@@ -21,8 +21,16 @@ const activityValidationRules = (item) => {
     return errors;
 };
 
+const itineraryValidationRules = (item) => {
+    let errors = [];
+    if (!item.name) errors.push("Itinerary name is required");
+    // Add other activity-specific validation checks here
+    return errors;
+};
+
 export default {
     flight: flightValidationRules,
     hotel: hotelValidationRules,
     activity: activityValidationRules,
+    itinerary: itineraryValidationRules,
 };
