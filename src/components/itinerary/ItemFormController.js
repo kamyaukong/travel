@@ -6,13 +6,7 @@ import { formatDateOnly } from '../utilities/Helper';
 
 export default function ItemFormController ({ index, item, schema, handleChange, openModal, isEditing }) {
   const { fields } = schema;
-  
-  /*
-  const handleModalClick = (event) => {
-    alert('handleModalClick');
-    event.stopPropagation();
-  };
-  */
+
   return (
     <div>
       <div className={schema.classname}>

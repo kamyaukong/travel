@@ -1,3 +1,9 @@
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
 .modal-additem {
   background: #fefefe;
   padding: 20px;
@@ -20,7 +26,8 @@
 
 .itinerary-info {
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
   padding: 5px;
   border: 1px solid #eee;
   margin-bottom: 10px;

@@ -42,6 +42,9 @@ const TripList = () => {
 
   return (
     <div>
+      <div className="create-trip-button">
+        <button onClick={() => navigate('/itinerary/new')}>Create New Trip</button>
+      </div>
       {trips.map(trip => (
         <div key={trip._id} 
               className="trip-box"
