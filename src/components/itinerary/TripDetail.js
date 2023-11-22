@@ -7,9 +7,9 @@ import { getSortDateForItem } from '../utilities/Helper';
 import { ConfirmationModal } from '../utilities/ConfirmationModal';
 import { ToastModal } from '../utilities/ToastModal';
 import ItemFormController from './ItemFormController';
-import { flightSchema } from './ItemFormView';
-import { hotelSchema } from './ItemFormView';
-import { activitySchema } from './ItemFormView';
+import { flightSchema, hotelSchema, activitySchema } from './ItemFormView';
+//import { hotelSchema } from './ItemFormView';
+//import { activitySchema } from './ItemFormView';
 import { AddItemModal } from './AddItemModal';
 import { EditItineraryModal } from './EditItineraryModal';
 import { useNavigate } from 'react-router-dom';
@@ -17,19 +17,19 @@ import { useNavigate } from 'react-router-dom';
 import './TripDetail.css';
 
 export const TripDetail = () => {
-  const { id } = useParams();
-  const [itineraryHeader, setItineraryHeader] = useState();
-  const [itineraryItems, setItineraryItems] = useState([]);
-  const [isDirty, setIsDirty] = useState(false);
-  const [isModalDelOpen, setIsModalDelOpen] = useState(false);
-  const [itemToDelete, setItemToDelete] = useState({ type: '', index: -1 });
-  const [addItemType, setAddItemType] = useState(null);
-  const [isModalAddItemOpen, setIsModalAddItemOpen] = useState(false);
-  const [isModalEditItineraryOpen, setIsModalEditItineraryOpen] = useState(false);
-  const [showToast, setShowToast] = useState(false);
-  const [toastMessage, setToastMessage] = useState('');
-  const [toastType, setToastType] = useState('standard');
-  const navigate = useNavigate();
+  const { id } = useParams(); // itinerary id pass from TripList.js
+  const [itineraryHeader, setItineraryHeader] = useState(); // itinerary header
+  const [itineraryItems, setItineraryItems] = useState([]); // itinerary items
+  const [isDirty, setIsDirty] = useState(false);  // control visibility of save button 
+  const [isModalDelOpen, setIsModalDelOpen] = useState(false); // control visibility of delete confirmation message box
+  const [itemToDelete, setItemToDelete] = useState({ type: '', index: -1 });  // itinerary item to delete
+  const [addItemType, setAddItemType] = useState(null); // control visibility of add item modal
+  const [isModalAddItemOpen, setIsModalAddItemOpen] = useState(false); // control visibility of add item modal
+  const [isModalEditItineraryOpen, setIsModalEditItineraryOpen] = useState(false);  // control visibility of edit itinerary modal
+  const [showToast, setShowToast] = useState(false); // control visibility of general message box (toast message)
+  const [toastMessage, setToastMessage] = useState(''); // message to show on toast message box
+  const [toastType, setToastType] = useState('standard'); // message type either standard or error for now. show different bg color
+  const navigate = useNavigate(); // hadle back button
 
   // Fetch itinerary details from the Node.JS API
   useEffect(() => {
@@ -41,9 +41,10 @@ export const TripDetail = () => {
           setItineraryItems(items);
         })
         .catch(error => {
-          console.error('There was an error fetching the itinerary details', error);
+          displayToast('There was an error fetching the itinerary details: ' + error.message, "warning");
         });
     } else {
+      // new itinerary - create blank header and items
       setItineraryHeader({
         name: '',
         startDate: '',
@@ -58,12 +59,13 @@ export const TripDetail = () => {
     }
   }, [id]);
 
-  // Modal process for Delete Confirmation Message Box
+  // Modal for Delete Confirmation Message Box
   const openDelModal = (index) => {
     setItemToDelete({ index });
     setIsModalDelOpen(true);
   };
 
+  // Delete itinerary item using index number from the list
   const deleteItem = (index) => {
     const updatedItems = itineraryItems.filter((_, itemIndex) => itemIndex !== index);
     setItineraryItems(updatedItems);
@@ -71,12 +73,14 @@ export const TripDetail = () => {
     setIsModalDelOpen(false);
   };
 
+  // Edit Itinerary Header
   const handleEditItinerary = (item) => {
     setItineraryHeader(item);
     setIsDirty(true);
     setIsModalEditItineraryOpen(false);
   }
 
+  // Add new item to the itinerary item list
   const handleAddItem = (type, itemData) => {
     const newItem = { ...itemData, type, sortDate: getSortDateForItem(type, itemData) };
     setItineraryItems([...itineraryItems, newItem]);
@@ -96,7 +100,7 @@ export const TripDetail = () => {
   };
 
   // A state (flag) to indicate if the user has made any changes to any itinerary fields
-  // If the user has made any changes, the [Save] button will be enabled
+  // If the form is dirty, the [Save] button will shown
   const handleInputChange = (event, index) => {
     const { name, value } = event.target;
     // Create a new array with updated item
@@ -111,7 +115,7 @@ export const TripDetail = () => {
     setIsDirty(true);
   };
 
-  // Save to API
+  // Post to API
   const saveChanges = async () => {
     try {
       const updateData = { ...itineraryHeader, items: itineraryItems };
@@ -129,10 +133,10 @@ export const TripDetail = () => {
   };
 
   if (!itineraryHeader) {
-    return <div>Loading itinerary ...</div>;
+    return <div>Seems system hit an issue when loading itinerary ...</div>;
   }
 
-  // Triggered ItemFormController to render details on the main return statement below
+  // Triggered reuseable component 'ItemFormController' to render item details
   const renderItem = (item, index) => {
     let schemaType;
 
@@ -154,9 +158,11 @@ export const TripDetail = () => {
       isEditing={true}
     />)
   }
-
+  console.log(itineraryItems);
+  // start render the whole page
   return (
     <div className="trip-detail">
+      {/* Make the header clickable for user to edit itinerary details */}
       <div className="itinerary-header" onClick={() => setIsModalEditItineraryOpen(true)}>
         <h2>{itineraryHeader.name}</h2>
         <h3 className="date-range">From: {formatDateOnly(itineraryHeader.startDate)} to {formatDateOnly(itineraryHeader.endDate)}</h3>
@@ -165,16 +171,16 @@ export const TripDetail = () => {
       </div>
       {/* Menu Areas: 3 buttons to add new item and [Save] button to save editing changes*/}
       <div className="menu-bar">
+        <button onClick={handleBackClick}>Back</button>
         <span onClick={() => { setAddItemType('flight'); setIsModalAddItemOpen(true); }}>✈️</span>
         <span onClick={() => { setAddItemType('hotel'); setIsModalAddItemOpen(true); }}>🏨</span>
         <span onClick={() => { setAddItemType('activity'); setIsModalAddItemOpen(true); }}>🎉</span>
         {isDirty && <button onClick={saveChanges} style={{float: 'right'}}>Save</button>}
       </div>
-      <button onClick={handleBackClick}>Back</button>
-      {/* Loop all itinerary items and reuse ItemFormController to render details */}
+      {/* Loop all itinerary items and use reuseable component 'ItemFormController' to render details */}
       {itineraryItems.length === 0 ? (
         <div>
-            <p>No items yet. Use icon above to add flights, hotels, or activities to your itinerary.</p>
+            <p>No items yet. Use icon above to add flights, hotels, or activities to your trip.</p>
         </div>
         ) : (itineraryItems.map((item, index) => (renderItem(item, index))))
       }

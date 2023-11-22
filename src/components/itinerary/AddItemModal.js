@@ -11,12 +11,14 @@ export const AddItemModal = ({ isOpen, itemType, onAddItem, onRequestClose }) =>
   const [itemToAdd, setNewItem] = useState({});
   const [errors, setErrors] = useState([]);
 
+  // update user input to fields
   const handleChange = (e) => {
     const { name, value } = e.target;
     setNewItem({ ...itemToAdd, [name]: value });
     setErrors([]); // Clear error messages when user starts typing
   };
 
+  // handle submit button
   const handleSubmit = () => {
     const validationErrors = validationRules[itemType](itemToAdd);
     if (validationErrors && validationErrors.length > 0) {
@@ -42,6 +44,7 @@ export const AddItemModal = ({ isOpen, itemType, onAddItem, onRequestClose }) =>
       schema = null;
   }
 
+  // Use reuseable component 'ItemFormController' to render itinerary item details
   return (
     <ReactModal 
       isOpen={isOpen} 

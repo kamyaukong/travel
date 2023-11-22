@@ -11,12 +11,14 @@ export const EditItineraryModal = ({ isOpen, item, onSave, onRequestClose }) => 
     const [editedItinerary, setEditedItinerary] = useState(item);
     const [errors, setErrors] = useState([]);
 
+    // update user input to fields
     const handleChange = (e) => {
         const { name, value } = e.target;
         setEditedItinerary({ ...editedItinerary, [name]: value });
         setErrors([]); // Clear error messages when user starts typing
     };
 
+    // handle submit button
     const handleSubmit = () => {
         const validationErrors = validationRules.itinerary(editedItinerary);
         if (validationErrors && validationErrors.length > 0) {
@@ -27,6 +29,7 @@ export const EditItineraryModal = ({ isOpen, item, onSave, onRequestClose }) => 
         onRequestClose();
       };
 
+    // Use reuseable component 'ItemFormController' to render itinerary header
     return (
         <ReactModal
             isOpen={isOpen}

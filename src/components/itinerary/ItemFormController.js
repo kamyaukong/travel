@@ -6,7 +6,9 @@ import { formatDateOnly } from '../utilities/Helper';
 
 export default function ItemFormController ({ index, item, schema, handleChange, openModal, isEditing }) {
   const { fields } = schema;
-
+  // a generic function to render itinerary items (flights, hotels, activities)
+  // based on the schema passed from schema. The parent component read schemas from ItemFormView.js 
+  console.log(item);
   return (
     <div>
       <div className={schema.classname}>
