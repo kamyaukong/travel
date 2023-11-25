@@ -1,20 +1,31 @@
 // NavigationBar.js
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { AuthContext } from '../routers/Authentication';
 
-const NavigationBar = ({ isLoggedIn, handleLogout }) => {
+const NavigationBar = () => {
+  const { isAuthenticated, userID, logout } = useContext(AuthContext);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  };
+
+  const isSignupPage = location.pathname === '/signup';
+
   return (
     <nav>
       <h1>Itinerary Management</h1>
       <div>
-        { isLoggedIn ? (
+        { isAuthenticated ? (
           <>
-            <button>Create New Trip</button>
-            <Link to="/profile">UserID</Link>
-            <button>Logout</button>
+            <label>{'User:' + userID}</label>
+            <button onClick={handleLogout}>Logout</button>
           </>
         ) : (
-          <button>Sign Up</button>
+          (!isSignupPage && <Link to="/signup">Sign Up</Link>) 
         )}
       </div>
     </nav>

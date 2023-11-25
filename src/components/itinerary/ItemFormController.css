@@ -1,60 +1,39 @@
-/*
-.activity-item {
-    width: 50px;
-    height: 50px;
-    margin-right: 20px;
+.item-form-container {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-*/
-
-
-/*
-.icon-container {
-    width: 50px;
-    height: 50px;
-    margin-right: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-*/
-/*
-.itinerary-info {
-    flex-grow: 1;
-}
-*/
-label {
-    margin-right: 10px;
-    width: 150px;
-    text-align: left;
-    /*
-    display: block;
-    margin-bottom: 10px;
-    */
-}
-
-input {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-    width: 200px;
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    /*
-    width: 100%;
-    padding: 5px;
-    margin-top: 5px;
-    margin-right: 10px;
-    */
-}
-
-.delete-icon {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    cursor: pointer;
+    flex-direction: column;
+    gap: 10px; /* Adjust the gap between form elements */
+    box-shadow: 0px 2px rgb(172, 172, 172);
+    margin: 30px 30px 0px 10px;
+    padding: 10px;
+    max-width: 100%;
+    float:right;
   }
+  
+  .field-container {
+    margin-bottom: 10px;
+  }
+  
+  .field-container label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  .field-container input {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+  }
+  
+  .delete-icon {
+    cursor: pointer;
+    margin-left: 10px;
+    font-size: 18px;
+  }
+  
+  label {
+    font-family: 'Ubuntu', sans-serif;
+    color: rgb(83, 83, 83);
+  }
+  

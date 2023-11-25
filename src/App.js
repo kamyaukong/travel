@@ -1,40 +1,38 @@
+// /App.js
 import React from 'react';
-// import UserRegForm from "./components/users/UserRegForm";
+import { BrowserRouter, Routes, Route, Navigate  } from 'react-router-dom';
+import { AuthProvider } from './routers/Authentication';
+import ProtectedRoute from './routers/ProtectedRoute';
+import UserLogon from './components/users/UserLogon';
+import UserRegForm from './components/users/UserRegForm';
 import NavigationBar from "./components/NavigationBar";
-import ProtectedRoute from './routes/ProtectedRoutes'; //HOC for protected routes
 import TripList from './components/itinerary/TripList';
 import TripDetail from './components/itinerary/TripDetail';
-//import Login from './components/Login'; // Your login component
-import Login from './components/users/Login';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 const App = () => {
-  const isAuthenticated = true;
 
   return (
-    <BrowserRouter>
-      <NavigationBar isAuthenticated={isAuthenticated} /> {/* Include the NavigationBar */}
-      <Routes>
-        <Route 
-          path="/" 
-          element={
-            <ProtectedRoute isAuthenticated={isAuthenticated}>
+    <AuthProvider>
+      <BrowserRouter>
+        <NavigationBar />
+          <Routes>
+          <Route path="/" element={<Navigate to="/itinerary" />} />
+          <Route path="/itinerary" element={
+            <ProtectedRoute>
               <TripList />
             </ProtectedRoute>
-          } 
-        />
-        <Route 
-          path="/itinerary/:id" 
-          element={
-            <ProtectedRoute isAuthenticated={isAuthenticated}>
+          } />
+          <Route path="/itinerary/:id" element={
+            <ProtectedRoute>
               <TripDetail />
             </ProtectedRoute>
-          } 
-        />
-        <Route path="/login" element={<Login />} />
-        {/* ... other routes */}
-      </Routes>
-    </BrowserRouter>
+          } />
+          <Route path="/login" element={<UserLogon />} />
+          <Route path="/signup" element={<UserRegForm />} />  
+          {/* ... other routes */}
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
   );
 };
 

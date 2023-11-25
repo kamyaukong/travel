@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import UserRegField from "./UserRegField"
 import "./UserRegForm.css";
 
@@ -15,6 +16,7 @@ const UserRegForm = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     // To show message returned from server
     const [statusMessage, setStatusMessage] = useState({message:'', type:''});
+    const navigate = useNavigate();
 
     // Array of the form fields
     // name property must be match with data model on server side
@@ -87,6 +89,8 @@ const UserRegForm = () => {
                 //console.error('Submit failure returned from server: ', data.error);
             } else {
                 setStatusMessage({message:'Account registration has been completed', type:'I'});
+                setIsSubmitting(false);
+                setTimeout(() => navigate('/'), 2000);
             }
         } catch (error) {
             setIsSubmitting(false);

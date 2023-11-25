@@ -8,8 +8,6 @@ import { ConfirmationModal } from '../utilities/ConfirmationModal';
 import { ToastModal } from '../utilities/ToastModal';
 import ItemFormController from './ItemFormController';
 import { flightSchema, hotelSchema, activitySchema } from './ItemFormView';
-//import { hotelSchema } from './ItemFormView';
-//import { activitySchema } from './ItemFormView';
 import { AddItemModal } from './AddItemModal';
 import { EditItineraryModal } from './EditItineraryModal';
 import { useNavigate } from 'react-router-dom';
@@ -34,15 +32,26 @@ export const TripDetail = () => {
   // Fetch itinerary details from the Node.JS API
   useEffect(() => {
     if(id !== 'new') {
-      axios.get(`${process.env.REACT_APP_API_URL}/itinerary/${id}`)
-        .then(response => {
-          const { mainDetails, items } = response.data;
-          setItineraryHeader(mainDetails);
-          setItineraryItems(items);
-        })
-        .catch(error => {
-          displayToast('There was an error fetching the itinerary details: ' + error.message, "warning");
-        });
+      const token = localStorage.getItem('token');
+      // Check if the token exists
+      if (token) {
+        const config = {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        };
+        axios.get(`${process.env.REACT_APP_API_URL}/itinerary/${id}`, config)
+          .then(response => {
+            const { mainDetails, items } = response.data;
+            setItineraryHeader(mainDetails);
+            setItineraryItems(items);
+          })
+          .catch(error => {
+            displayToast('There was an error fetching the itinerary details: ' + error.message, "warning");
+          });
+      } else {
+        displayToast('Authorization token not found, please login.', "warning");
+      }
     } else {
       // new itinerary - create blank header and items
       setItineraryHeader({
@@ -118,11 +127,18 @@ export const TripDetail = () => {
   // Post to API
   const saveChanges = async () => {
     try {
+      const token = localStorage.getItem('token');
       const updateData = { ...itineraryHeader, items: itineraryItems };
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
+      };
       if (id === 'new') {
-        await axios.post(`${process.env.REACT_APP_API_URL}/itinerary`, updateData);
+        await axios.post(`${process.env.REACT_APP_API_URL}/itinerary`, updateData, config);
       } else {
-        await axios.put(`${process.env.REACT_APP_API_URL}/itinerary/${id}`, updateData);
+        await axios.put(`${process.env.REACT_APP_API_URL}/itinerary/${id}`, updateData, config);
       }
       setIsDirty(false);
       displayToast('Record has been saved', 'warning');
@@ -158,7 +174,7 @@ export const TripDetail = () => {
       isEditing={true}
     />)
   }
-  console.log(itineraryItems);
+  // console.log(itineraryItems);
   // start render the whole page
   return (
     <div className="trip-detail">

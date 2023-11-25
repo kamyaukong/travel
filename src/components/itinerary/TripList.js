@@ -10,10 +10,24 @@ const TripList = () => {
   const navigate = useNavigate(); // Hook to navigate to different routes
 
   useEffect(() => {
-    // console.log('useEffect called: ', `${process.env.REACT_APP_API_URL}/itinerary`);
-    axios.get(`${process.env.REACT_APP_API_URL}/itinerary`).then(response => {
-      setTrips(response.data);
-    });
+    const token = localStorage.getItem('token'); // Retrieve the stored token
+    if (token) {
+      const config = {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      };
+      // console.log('useEffect called: ', `${process.env.REACT_APP_API_URL}/itinerary`);
+      axios.get(`${process.env.REACT_APP_API_URL}/itinerary`, config)
+        .then(response => {
+          setTrips(response.data);
+        })
+        .catch(error => {
+          console.log('Error fetching trips: ', error.message);
+        })
+    } else {
+      console.log('No token found');
+    };
   }, []);
 
   //Handler for adding flights, hotels, activities

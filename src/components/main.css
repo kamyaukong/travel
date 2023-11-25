@@ -1,16 +1,26 @@
-/* main.css */
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin:10px 5% 0px 5%;
   }
   
   nav h1 {
-    /* styles for your title */
+    font-family: 'Poppins', sans-serif;
+    color: rgb(19, 34, 34);
   }
   
   nav button {
-    /* unified button styles */
+    padding: 8px 16px;
+    background-color: #3474db;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 15px;
+    transition: background-color 0.3s ease-in-out;
   }
 
-  
+  nav button:hover{
+    background-color: #264ba3; 
+  }
