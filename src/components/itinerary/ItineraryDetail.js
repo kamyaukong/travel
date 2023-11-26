@@ -162,12 +162,14 @@ export const TripDetail = () => {
   return (
     <div className="itinerary-detail">
       {/* Make the header clickable for user to edit itinerary details */}
-      <button className="button-style" onClick={handleBackClick}>Back</button>
+      <div className="function-button">
+        <button className="button-style" onClick={handleBackClick}>Back</button>
+      </div>
       <div className="itinerary-header" onClick={() => {setIsModalEditItineraryOpen(true)}}>
-        <b>{itineraryHeader.name}</b>
-        From: {formatDateOnly(itineraryHeader.startDate)} to {formatDateOnly(itineraryHeader.endDate)}
-        Adult: {itineraryHeader.adults}Child: {itineraryHeader.children}
-        Budget: {itineraryHeader.budget}
+        <h2>{itineraryHeader.name}</h2>
+        <h3>From: {formatDateOnly(itineraryHeader.startDate)} to {formatDateOnly(itineraryHeader.endDate)}</h3>
+        <h3>Adult: {itineraryHeader.adults} &nbsp;&nbsp;&nbsp;Child: {itineraryHeader.children}</h3>
+        <h3>Budget: {itineraryHeader.budget}</h3>
       </div>
       {/* Menu Areas: 3 buttons to add new item and [Save] button to save editing changes*/}
       <div className="menu-bar">
