@@ -1,5 +1,5 @@
 // src/routes/Authentication.js
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useState, useContext, useEffect } from 'react';
 
 export const AuthContext  = createContext(null);
 
@@ -7,8 +7,16 @@ export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userID, setUserID] = useState('');
 
-  const login = (token) => {
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      setIsAuthenticated(true);
+    }
+  }, []);
+
+  const login = (token, userID) => {
     localStorage.setItem('token', token);
+    setUserID(userID);
     setIsAuthenticated(true);
   };
 

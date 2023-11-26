@@ -1,11 +1,12 @@
 // /src/itinerary/AddItemModal.js
 import React, { useState } from 'react';
 import ReactModal from 'react-modal';
-import ItemFormController from './ItemFormController';
-import { flightSchema, hotelSchema, activitySchema } from './ItemFormView';
-import validationRules from '../utilities/validationRules';
+// import ItemFormController from './ItemFormController';
+import FormGenerator from '../common/FormGenerator';
+// import { flightSchema, hotelSchema, activitySchema } from './ItemFormView';
+import validationRules from '../common/validationRules';
 
-import './AddItemModal.css';
+// import './AddItemModal.css';
 
 export const AddItemModal = ({ isOpen, itemType, onAddItem, onRequestClose }) => {
   const [itemToAdd, setNewItem] = useState({});
@@ -29,6 +30,7 @@ export const AddItemModal = ({ isOpen, itemType, onAddItem, onRequestClose }) =>
     onRequestClose();
   };
 
+  /*
   let schema;
   switch (itemType) {
     case 'flight':
@@ -43,7 +45,7 @@ export const AddItemModal = ({ isOpen, itemType, onAddItem, onRequestClose }) =>
     default:
       schema = null;
   }
-
+*/
   // Use reuseable component 'ItemFormController' to render itinerary item details
   return (
     <ReactModal 
@@ -53,11 +55,11 @@ export const AddItemModal = ({ isOpen, itemType, onAddItem, onRequestClose }) =>
       className="modal-additem"
       overlayClassName="modal-overlay-additem"
     >
-      {schema && (
+      {itemType && (
         <>
-          <ItemFormController
+          <FormGenerator
             item={itemToAdd}
-            schema={schema}
+            schemaIdentifier={itemType}
             handleChange={handleChange}
           />
           <div className="error-messages">

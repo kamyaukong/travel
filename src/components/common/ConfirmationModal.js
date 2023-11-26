@@ -1,7 +1,7 @@
 // /src/components/itinerary/utilities/ConfirmationModal.js
 import React from 'react';
 import ReactModal from 'react-modal';
-import './ConfirmationModal.css';
+// import './ConfirmationModal.css';
 
 // Prevents screen readers from reading background content
 ReactModal.setAppElement('#root');

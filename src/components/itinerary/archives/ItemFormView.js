@@ -41,3 +41,9 @@ export const itinerarySchema = {
     { name: 'children', label: 'Children/Child', type: 'number' },
     { name: 'budget', label: 'Overall Budget', type: 'number' },  
 ]};
+
+export const logonSchema = {
+    classname: 'logon-info',
+    fields: [{ name: 'userID', label: 'UserID', type: 'text' },
+    { name: 'password', label: 'Password', type: 'password' },
+]};

@@ -1,8 +1,9 @@
 // /src/components/itinerary/ItemFormController.js
 import React from 'react';
-import './ItemFormController.css';
-import convertTo24Hour from '../utilities/Helper';
-import { formatDateOnly } from '../utilities/Helper';
+import convertTo24Hour from '../../common/Helper';
+import { formatDateOnly } from '../../common/Helper';
+
+// import './ItemFormController.css';
 
 export default function ItemFormController ({ index, item, schema, handleChange, openModal, isEditing }) {
   const { fields } = schema;

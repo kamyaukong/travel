@@ -1,4 +1,4 @@
-import "./UserRegField.css";
+// import "./UserRegField.css";
 import { useState } from "react";
 
 const UserRegField = (props) => {

@@ -1,21 +1,25 @@
 // /src/components/itinerary/TripDetail.js
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect, useContext } from 'react';
+// import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import { formatDateOnly } from '../utilities/Helper';
-import { getSortDateForItem } from '../utilities/Helper';
-import { ConfirmationModal } from '../utilities/ConfirmationModal';
-import { ToastModal } from '../utilities/ToastModal';
-import ItemFormController from './ItemFormController';
-import { flightSchema, hotelSchema, activitySchema } from './ItemFormView';
+import { formatDateOnly } from '../common/Helper';
+import { getSortDateForItem } from '../common/Helper';
+import { ConfirmationModal } from '../common/ConfirmationModal';
+import { ToastModal } from '../common/ToastModal';
+// import ItemFormController from './ItemFormController';
+import  FormGenerator from '../common/FormGenerator';
+//import { flightSchema, hotelSchema, activitySchema } from './ItemFormView';
 import { AddItemModal } from './AddItemModal';
 import { EditItineraryModal } from './EditItineraryModal';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../routers/Authentication';
+import callApi from '../../routers/api';
 
-import './TripDetail.css';
+// import './TripDetail.css';
 
 export const TripDetail = () => {
   const { id } = useParams(); // itinerary id pass from TripList.js
+  const { userID } = useContext(AuthContext);
   const [itineraryHeader, setItineraryHeader] = useState(); // itinerary header
   const [itineraryItems, setItineraryItems] = useState([]); // itinerary items
   const [isDirty, setIsDirty] = useState(false);  // control visibility of save button 
@@ -35,11 +39,23 @@ export const TripDetail = () => {
       const token = localStorage.getItem('token');
       // Check if the token exists
       if (token) {
+        /*
         const config = {
           headers: {
             'Authorization': `Bearer ${token}`
           }
-        };
+          */
+        const config = {'Authorization': `Bearer ${token}`};
+        callApi(`/itinerary/${id}`, 'GET', null, config)
+          .then(data => {
+            const { mainDetails, items } = data;
+            setItineraryHeader(mainDetails);
+            setItineraryItems(items);
+          })
+          .catch(error => {
+            displayToast('An error has occurred when fetching itinerary details: ' + error.message, "warning");
+          });
+        /*
         axios.get(`${process.env.REACT_APP_API_URL}/itinerary/${id}`, config)
           .then(response => {
             const { mainDetails, items } = response.data;
@@ -48,7 +64,7 @@ export const TripDetail = () => {
           })
           .catch(error => {
             displayToast('There was an error fetching the itinerary details: ' + error.message, "warning");
-          });
+          });*/
       } else {
         displayToast('Authorization token not found, please login.', "warning");
       }
@@ -61,7 +77,7 @@ export const TripDetail = () => {
         adults: 0,
         children: 0,
         budget: 0,
-        userID: 'testing',
+        userID: userID,
       });
       setItineraryItems([]);
       const temp = setIsModalEditItineraryOpen(true);
@@ -129,16 +145,13 @@ export const TripDetail = () => {
     try {
       const token = localStorage.getItem('token');
       const updateData = { ...itineraryHeader, items: itineraryItems };
-      const config = {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        }
-      };
+      const config = {'Authorization': `Bearer ${token}`}
       if (id === 'new') {
-        await axios.post(`${process.env.REACT_APP_API_URL}/itinerary`, updateData, config);
+        //await axios.post(`${process.env.REACT_APP_API_URL}/itinerary`, updateData, config);
+        await callApi('/itinerary', 'POST', updateData, config);
       } else {
-        await axios.put(`${process.env.REACT_APP_API_URL}/itinerary/${id}`, updateData, config);
+        // await axios.put(`${process.env.REACT_APP_API_URL}/itinerary/${id}`, updateData, config);
+        await callApi(`/itinerary/${id}`, 'PUT', updateData, config);
       }
       setIsDirty(false);
       displayToast('Record has been saved', 'warning');
@@ -154,32 +167,22 @@ export const TripDetail = () => {
 
   // Triggered reuseable component 'ItemFormController' to render item details
   const renderItem = (item, index) => {
-    let schemaType;
-
-    if (item.type === 'flight') {
-      schemaType = flightSchema;
-    } else if (item.type === 'hotel') {
-      schemaType = hotelSchema;
-    } else if (item.type === 'activity') {
-      schemaType = activitySchema;
-    } else { schemaType = null}
-
-    return (<ItemFormController
-      key={item._id || index}
-      index={index}
+    return (<><FormGenerator
       item={item}
-      schema={schemaType}
+      schemaIdentifier={item.type}
       handleChange={(e) => handleInputChange(e, index)}
-      openModal={openDelModal}
-      isEditing={true}
-    />)
+    />
+    <div className="delete-icon" onClick={() => openDelModal(index)}>🗑️</div>
+    </>
+    )
   }
   // console.log(itineraryItems);
   // start render the whole page
   return (
     <div className="trip-detail">
       {/* Make the header clickable for user to edit itinerary details */}
-      <div className="itinerary-header" onClick={() => setIsModalEditItineraryOpen(true)}>
+      <div className="itinerary-header" onClick={() => {setIsModalEditItineraryOpen(true)}}>
+        <h1>{'UserID: '+userID}</h1>
         <h2>{itineraryHeader.name}</h2>
         <h3 className="date-range">From: {formatDateOnly(itineraryHeader.startDate)} to {formatDateOnly(itineraryHeader.endDate)}</h3>
         <h3>Adult: {itineraryHeader.adults}</h3><h3>Child: {itineraryHeader.children}</h3>

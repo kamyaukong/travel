@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import UserRegField from "./UserRegField"
-import "./UserRegForm.css";
+import callApi from "../../routers/api";
 
 const UserRegForm = () => {
     // Form field variables
-    const [values, setValues] = useState({
+    const [formValues, setFormValues] = useState({
         userID: "",
         email: "",
         dob: "",
@@ -64,7 +64,7 @@ const UserRegForm = () => {
             placeholder:"Verify Password",
             label:"Verify Password",
             required: true,
-            pattern: values.password,
+            pattern: formValues.password,
             errorMessage: "Password don't match!",
         }
     ]
@@ -75,6 +75,8 @@ const UserRegForm = () => {
         e.preventDefault();
         setIsSubmitting(true);  //disabled submit button
         try {
+            const data = await callApi(`/users/`, 'POST', formValues);
+            /*
             const response = await fetch(`${process.env.REACT_APP_API_URL}/users`, {
                 method: "POST",
                 headers: {
@@ -83,7 +85,8 @@ const UserRegForm = () => {
                 body: JSON.stringify(values),
             });
             const data = await response.json();
-            if (!response.ok) {
+            */
+            if (!data) {
                 setIsSubmitting(false);
                 setStatusMessage({message:'Error when saving: ' + data.error, type:'E'});
                 //console.error('Submit failure returned from server: ', data.error);
@@ -101,7 +104,7 @@ const UserRegForm = () => {
 
     // Field change event trigger valiation
     const onChange = (e) => {
-        setValues({...values, [e.target.name]: e.target.value})
+        setFormValues({...formValues, [e.target.name]: e.target.value})
     }
 
     // Finally, render the form
@@ -111,7 +114,7 @@ const UserRegForm = () => {
                 <h1>Registration</h1>
                 {regFields.map((regField)=>(
                     <UserRegField key={regField.id} {...regField} 
-                        value={values[regField.name]} 
+                        value={formValues[regField.name]} 
                         onChange={onChange}>
                     </UserRegField>
                 ))}

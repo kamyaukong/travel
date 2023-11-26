@@ -1,16 +1,17 @@
 // /src/components/itinerary/ItemFormController.js
 import React, { useState } from 'react';
 import ReactModal from 'react-modal';
-import validationRules from '../utilities/validationRules';
-import ItemFormController from './ItemFormController';
-import { itinerarySchema } from './ItemFormView';
+import validationRules from '../common/validationRules';
+// import ItemFormController from './ItemFormController';
+import FormGenerator from '../common/FormGenerator';
+//import { itinerarySchema } from './ItemFormView';
 
-import './EditItineraryModal.css';
+// import './EditItineraryModal.css';
 
 export const EditItineraryModal = ({ isOpen, item, onSave, onRequestClose }) => {
     const [editedItinerary, setEditedItinerary] = useState(item);
     const [errors, setErrors] = useState([]);
-
+//console.log('EditItineraryModal item: ', item);
     // update user input to fields
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -29,7 +30,7 @@ export const EditItineraryModal = ({ isOpen, item, onSave, onRequestClose }) => 
         onRequestClose();
       };
 
-    // Use reuseable component 'ItemFormController' to render itinerary header
+    // Use reuseable component 'FormGenerator' to render itinerary header
     return (
         <ReactModal
             isOpen={isOpen}
@@ -38,9 +39,9 @@ export const EditItineraryModal = ({ isOpen, item, onSave, onRequestClose }) => 
             overlayClassName="modal-overlay-editItinerary"
             onRequestClose={onRequestClose}
         >
-            <ItemFormController
+            <FormGenerator
                 item={editedItinerary}
-                schema={itinerarySchema}
+                schemaIdentifier={'itinerary'}
                 handleChange={handleChange}
             />
             <div className="error-messages">
