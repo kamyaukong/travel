@@ -6,8 +6,8 @@ import ProtectedRoute from './routers/ProtectedRoute';
 import UserLogon from './components/users/UserLogon';
 import UserRegForm from './components/users/UserRegForm';
 import NavigationBar from "./components/NavigationBar";
-import TripList from './components/itinerary/TripList';
-import TripDetail from './components/itinerary/TripDetail';
+import ItineraryList from './components/itinerary/ItineraryList';
+import ItineraryDetail from './components/itinerary/ItineraryDetail';
 
 const App = () => {
 
@@ -19,12 +19,12 @@ const App = () => {
           <Route path="/" element={<Navigate to="/itinerary" />} />
           <Route path="/itinerary" element={
             <ProtectedRoute>
-              <TripList />
+              <ItineraryList />
             </ProtectedRoute>
           } />
           <Route path="/itinerary/:id" element={
             <ProtectedRoute>
-              <TripDetail />
+              <ItineraryDetail />
             </ProtectedRoute>
           } />
           <Route path="/login" element={<UserLogon />} />

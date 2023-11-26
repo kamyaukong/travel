@@ -1,0 +1,124 @@
+/* NavigationBar.css */
+
+/* Customize the navigation bar background */
+.navbar {
+    background-color: #0056b3; /* Darker shade of #007bff */
+    padding: 0.5rem 1rem;
+  }
+  
+  /* Brand styling */
+  .navbar-brand {
+    color: #fff !important; /* Sets the brand text color */
+    font-size: 1.5rem; /* Adjusts the size of the brand text */
+    font-weight: bold; /* Makes the brand text bold */
+  }
+  
+  /* Navigation link styling */
+  .nav-link {
+    color: #f8f9fa !important; /* Light color for the links - change as needed */
+    margin-right: 1rem; /* Space between the links */
+  }
+  
+  .nav-link:hover {
+    color: #d4d7dc !important; /* Color on hover */
+    text-decoration: none; /* Removes underline on hover */
+  }
+  
+  /* Button customization */
+  .btn-outline-primary {
+    color: #f8f9fa;
+    border-color: #f8f9fa;
+    margin-left: 1rem; /* Adds space before the button */
+  }
+  
+  .btn-outline-primary:hover {
+    color: #0056b3;
+    background-color: #f8f9fa;
+    border-color: #f8f9fa;
+  }
+  
+  /* User label styling */
+  .navbar .nav-link label {
+    color: #fff;
+    margin-right: 10px;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 992px) {
+    .navbar {
+      padding: 0.5rem;
+    }
+  
+    .nav-link,
+    .btn-outline-primary {
+      margin-right: 0.5rem;
+      margin-left: 0.5rem;
+    }
+  
+    .navbar-brand {
+      font-size: 1.25rem;
+    }
+  }
+
+  @media (min-width: 992px) {
+    .navbar-toggler {
+      display: none;
+    }
+  }
+  
+  /* Style for the Sign Up link */
+  .navbar-nav .nav-item:last-child .nav-link {
+    margin-left: auto; /* Pushes the last link to the right */
+  }
+
+  .navbar-collapse {
+    display: flex;
+    justify-content: flex-end;
+  }  
+  
+  /* Remove text underline from all links in the navbar */
+.navbar a, .navbar a:hover, .navbar a:focus {
+    text-decoration: none;
+  }
+  
+  /* Additional styling to remove underline and change color on hover for nav-links */
+  .nav-link:hover, .nav-link:focus {
+    color: #d4d7dc !important; /* Adjust the hover color as needed */
+    text-decoration: none;
+  }
+
+  /* General style for all buttons and links */
+.navbar a, .navbar button {
+  transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+  cursor: pointer; /* Changes the cursor to indicate clickability */
+}
+
+/* Hover effect for links */
+.navbar a:hover, .navbar a:focus {
+  transform: translateY(-2px); /* Slightly raise the link on hover */
+  text-decoration: none; /* Removes underline on hover */
+}
+
+/* Hover effect for buttons */
+.navbar button:hover, .navbar button:focus {
+  background-color: #0056b3; /* Darker background color on hover */
+  transform: translateY(-2px); /* Slightly raise the button on hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow effect */
+}
+
+/* Active (click) effect for buttons */
+.navbar button:active {
+  transform: translateY(1px); /* Slightly depress the button when clicked */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Less shadow effect when active/clicked */
+}
+
+/* Style for the navigation bar itself */
+.navbar {
+  /* ... existing styles ... */
+  transition: box-shadow 0.3s;
+}
+
+/* Hover effect for the navigation bar */
+.navbar:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect */
+}

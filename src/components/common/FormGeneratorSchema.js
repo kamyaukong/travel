@@ -1,3 +1,4 @@
+// /src/components/common/FormGeneratorSchema.js
 export const flight = {
     classname: 'itinerary-info',
     fields: [{ name: 'airline', label: 'Airline', type: 'text' },

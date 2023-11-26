@@ -28,6 +28,7 @@ const UserLogon = () => {
     setIsSubmitting(true);
     try {
       const data = await callApi(`/users/logon`, 'POST', logonData);
+      console.log("Logon data: ", data);
       if (!data) {
         setIsSubmitting(false);
         setStatusMessage({
@@ -49,11 +50,12 @@ const UserLogon = () => {
     }
   };
 
+  /*
   const handleRegisterClick = () => {
     // Redirect to the register URL
     navigate("/register");
   };
-
+  */
   return (
     <div className="UserLoginForm">
       <form onSubmit={handleSubmit}>
@@ -71,9 +73,6 @@ const UserLogon = () => {
           {statusMessage.message}
           </div>
         )}
-        <button type="button" onClick={handleRegisterClick}>
-          Register
-        </button>
       </form>
     </div>
   );

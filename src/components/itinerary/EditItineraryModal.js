@@ -1,18 +1,12 @@
-// /src/components/itinerary/ItemFormController.js
+// /src/components/itinerary/EditItineraryModal.js
 import React, { useState } from 'react';
 import ReactModal from 'react-modal';
 import validationRules from '../common/validationRules';
-// import ItemFormController from './ItemFormController';
 import FormGenerator from '../common/FormGenerator';
-//import { itinerarySchema } from './ItemFormView';
-
-// import './EditItineraryModal.css';
 
 export const EditItineraryModal = ({ isOpen, item, onSave, onRequestClose }) => {
     const [editedItinerary, setEditedItinerary] = useState(item);
     const [errors, setErrors] = useState([]);
-//console.log('EditItineraryModal item: ', item);
-    // update user input to fields
     const handleChange = (e) => {
         const { name, value } = e.target;
         setEditedItinerary({ ...editedItinerary, [name]: value });

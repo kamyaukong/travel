@@ -1,0 +1,57 @@
+/* TripList.css */
+
+.create-trip-button {
+  margin-top: 20px; /* Adjust spacing as needed */
+  margin-bottom: 20px; /* Adjust spacing as needed */
+}
+
+.trip-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Adjust column width as needed */
+  gap: 20px; /* Space between items */
+}
+
+.trip-box {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  background-color: #f8f9fa; /* Background color of each box */
+  padding: 15px; /* Padding around content */
+  border-radius: 5px; /* Rounded corners */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Box shadow for a subtle depth effect */
+  cursor: pointer; /* Changes the cursor to indicate clickability */
+}
+
+.trip-box:hover {
+  transform: translateY(-2px); /* Slightly raise the box on hover */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Increase shadow effect on hover */
+}
+
+.trip-box:active {
+  transform: translateY(1px); /* Slightly depress the box when clicked */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Restore shadow effect when active/clicked */
+}
+
+.trip-details {
+  margin-top: 10px; /* Space between image and text */
+}
+
+.create-trip-button button {
+  background-color: #007bff; /* Button background color */
+  border: none; /* Removes the border */
+  color: #fff; /* Button text color */
+  padding: 10px 20px; /* Button padding */
+  border-radius: 20px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow effect */
+  font-size: 1rem; /* Adjust the font size as needed */
+  cursor: pointer; /* Changes the cursor to indicate clickability */
+  transition: background-color 0.3s, transform 0.3s; /* Transition for smooth color and transform change */
+}
+
+.create-trip-button button:hover {
+  background-color: #0056b3; /* Darker background color on hover */
+  transform: translateY(-2px); /* Slightly raise the button on hover */
+}
+
+.create-trip-button button:active {
+  transform: translateY(1px); /* Slightly depress the button when clicked */
+}

@@ -1,0 +1,169 @@
+/* ItineraryDetail.css */
+
+/* General button styling to match the Create New Trip button */
+.button-style {
+  background-color: #007bff;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.button-style:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.button-style:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Header area styling */
+.itinerary-header {
+  display: block;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+  /* ... Other styles similar to trip-box ... */
+  display: grid;
+  grid-template-rows: auto 1fr;
+  background-color: #f8f9fa; /* Background color of each box */
+  padding: 15px; /* Padding around content */
+  border-radius: 5px; /* Rounded corners */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Box shadow for a subtle depth effect */
+  cursor: pointer; /* Changes the cursor to indicate clickability */
+}
+
+.itinerary-header:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Button area styling */
+.menu-bar > span {
+  display: inline-block;
+  margin-right: 20px; /* Space between buttons */
+  font-size: 24px; /* Larger icon size */
+  cursor: pointer;
+}
+
+.menu-bar > span:hover {
+  transform: translateY(-2px);
+}
+
+/* Itinerary info tile styling */
+.itinerary-items-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Adjust the min-width as needed */
+  gap: 20px; /* Space between tiles */
+  padding: 20px; /* Padding around the grid container */
+}
+
+.itinerary-info {
+  background-color: #f8f9fa; /* Background color of each tile */
+  border-radius: 5px; /* Rounded corners for tile */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Box shadow for depth */
+  padding: 10px; /* Padding inside the tile */
+  position: relative; /* For absolute positioning of children */
+  width: 100%; /* Full width within the grid column */
+  max-width: 350px; /* Maximum width of each tile, adjust as needed */
+  padding-bottom: 30px; /* Extra padding to account for the delete button */
+}
+
+.editItinerary-info, .logon-info {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 20px;
+  /* Apply same grid style as itinerary-info */
+}
+
+.itinerary-info label {
+  display: block; /* Full width */
+  margin: 5px 0; /* Margin for spacing */
+}
+
+.itinerary-info input {
+  margin-left: 10px; /* Space between label and input */
+}
+
+.itinerary-info .field-container label {
+  margin: 0; /* Remove margin for label */
+  white-space: nowrap; /* Prevent label from wrapping */
+}
+
+.itinerary-info .field-container input {
+  width: 100%; /* Input field takes up remaining space */
+}
+
+.itinerary-info input,
+.itinerary-info select, /* Include select if you have dropdowns */
+.itinerary-info textarea { /* Include textarea for multi-line inputs */
+  width: 100%; /* Input field takes up remaining space */
+  margin-top: 2px; /* Spacing above the input */
+}
+
+/* Delete button positioned at the bottom right of the tile */
+.delete-icon {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.button-style {
+  background-color: #007bff;
+  border: none;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+  font-size: 1rem;
+  margin: 5px; /* Adjust or remove based on your layout */
+  width: auto; /* Adjust width as needed or remove for auto-width */
+}
+
+.button-style:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.button-style:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Clear floats if necessary */
+.menu-bar::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Style for modal popups */
+.modal-overlay-additem, .modal-overlay-deleteconfimration, .modal-overlay-editItinerary {
+  background-color: rgba(0, 0, 0, 0.75); /* Dim the background */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-additem, .modal-deleteconfimration, .modal-editItinerary {
+  /* Add styles for a pop-up look */
+  background: #fefefe;
+  padding: 20px;
+  border-radius: 4px;
+  max-width: 500px;
+  width: 100%;
+}

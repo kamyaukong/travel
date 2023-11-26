@@ -1,12 +1,8 @@
 // /src/itinerary/AddItemModal.js
 import React, { useState } from 'react';
 import ReactModal from 'react-modal';
-// import ItemFormController from './ItemFormController';
 import FormGenerator from '../common/FormGenerator';
-// import { flightSchema, hotelSchema, activitySchema } from './ItemFormView';
 import validationRules from '../common/validationRules';
-
-// import './AddItemModal.css';
 
 export const AddItemModal = ({ isOpen, itemType, onAddItem, onRequestClose }) => {
   const [itemToAdd, setNewItem] = useState({});
@@ -30,22 +26,6 @@ export const AddItemModal = ({ isOpen, itemType, onAddItem, onRequestClose }) =>
     onRequestClose();
   };
 
-  /*
-  let schema;
-  switch (itemType) {
-    case 'flight':
-      schema = flightSchema;
-      break;
-    case 'hotel':
-      schema = hotelSchema;
-      break;
-    case 'activity':
-      schema = activitySchema;
-      break;
-    default:
-      schema = null;
-  }
-*/
   // Use reuseable component 'ItemFormController' to render itinerary item details
   return (
     <ReactModal 

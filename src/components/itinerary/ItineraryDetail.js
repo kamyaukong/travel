@@ -1,21 +1,18 @@
 // /src/components/itinerary/TripDetail.js
 import React, { useState, useEffect, useContext } from 'react';
-// import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { formatDateOnly } from '../common/Helper';
 import { getSortDateForItem } from '../common/Helper';
 import { ConfirmationModal } from '../common/ConfirmationModal';
 import { ToastModal } from '../common/ToastModal';
-// import ItemFormController from './ItemFormController';
 import  FormGenerator from '../common/FormGenerator';
-//import { flightSchema, hotelSchema, activitySchema } from './ItemFormView';
 import { AddItemModal } from './AddItemModal';
 import { EditItineraryModal } from './EditItineraryModal';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../routers/Authentication';
 import callApi from '../../routers/api';
 
-// import './TripDetail.css';
+import './ItineraryDetail.css';
 
 export const TripDetail = () => {
   const { id } = useParams(); // itinerary id pass from TripList.js
@@ -39,12 +36,6 @@ export const TripDetail = () => {
       const token = localStorage.getItem('token');
       // Check if the token exists
       if (token) {
-        /*
-        const config = {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-          */
         const config = {'Authorization': `Bearer ${token}`};
         callApi(`/itinerary/${id}`, 'GET', null, config)
           .then(data => {
@@ -55,16 +46,6 @@ export const TripDetail = () => {
           .catch(error => {
             displayToast('An error has occurred when fetching itinerary details: ' + error.message, "warning");
           });
-        /*
-        axios.get(`${process.env.REACT_APP_API_URL}/itinerary/${id}`, config)
-          .then(response => {
-            const { mainDetails, items } = response.data;
-            setItineraryHeader(mainDetails);
-            setItineraryItems(items);
-          })
-          .catch(error => {
-            displayToast('There was an error fetching the itinerary details: ' + error.message, "warning");
-          });*/
       } else {
         displayToast('Authorization token not found, please login.', "warning");
       }
@@ -179,30 +160,31 @@ export const TripDetail = () => {
   // console.log(itineraryItems);
   // start render the whole page
   return (
-    <div className="trip-detail">
+    <div className="itinerary-detail">
       {/* Make the header clickable for user to edit itinerary details */}
+      <button className="button-style" onClick={handleBackClick}>Back</button>
       <div className="itinerary-header" onClick={() => {setIsModalEditItineraryOpen(true)}}>
-        <h1>{'UserID: '+userID}</h1>
-        <h2>{itineraryHeader.name}</h2>
-        <h3 className="date-range">From: {formatDateOnly(itineraryHeader.startDate)} to {formatDateOnly(itineraryHeader.endDate)}</h3>
-        <h3>Adult: {itineraryHeader.adults}</h3><h3>Child: {itineraryHeader.children}</h3>
-        <h3>Budget: {itineraryHeader.budget}</h3>
+        <b>{itineraryHeader.name}</b>
+        From: {formatDateOnly(itineraryHeader.startDate)} to {formatDateOnly(itineraryHeader.endDate)}
+        Adult: {itineraryHeader.adults}Child: {itineraryHeader.children}
+        Budget: {itineraryHeader.budget}
       </div>
       {/* Menu Areas: 3 buttons to add new item and [Save] button to save editing changes*/}
       <div className="menu-bar">
-        <button onClick={handleBackClick}>Back</button>
-        <span onClick={() => { setAddItemType('flight'); setIsModalAddItemOpen(true); }}>✈️</span>
-        <span onClick={() => { setAddItemType('hotel'); setIsModalAddItemOpen(true); }}>🏨</span>
-        <span onClick={() => { setAddItemType('activity'); setIsModalAddItemOpen(true); }}>🎉</span>
-        {isDirty && <button onClick={saveChanges} style={{float: 'right'}}>Save</button>}
+        <button className="button-style" onClick={() => { setAddItemType('flight'); setIsModalAddItemOpen(true); }}>✈️</button>
+        <button className="button-style" onClick={() => { setAddItemType('hotel'); setIsModalAddItemOpen(true); }}>🏨</button>
+        <button className="button-style" onClick={() => { setAddItemType('activity'); setIsModalAddItemOpen(true); }}>🎉</button>
+        {isDirty && <button className="button-style" onClick={saveChanges} style={{float: 'right'}}>Save</button>}
       </div>
       {/* Loop all itinerary items and use reuseable component 'ItemFormController' to render details */}
-      {itineraryItems.length === 0 ? (
-        <div>
-            <p>No items yet. Use icon above to add flights, hotels, or activities to your trip.</p>
-        </div>
-        ) : (itineraryItems.map((item, index) => (renderItem(item, index))))
-      }
+      <div className="itinerary-items-container">
+        {itineraryItems.length === 0 ? (
+          <div>
+              <p>No items yet. Use icon above to add flights, hotels, or activities to your trip.</p>
+          </div>
+          ) : (itineraryItems.map((item, index) => (renderItem(item, index))))
+        }
+      </div>
       {/* Modals - define popup windows*/}
       {/*   Edit Itinerary Header */}
       <EditItineraryModal
