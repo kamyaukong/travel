@@ -1,0 +1,33 @@
+.modal-overlay-additem, .modal-overlay-deleteconfimration, .modal-overlay-editItinerary {
+    background-color: rgba(0, 0, 0, 0.6);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+  
+/* Add styles for a pop-up look */
+.modal-additem, .modal-deleteconfimration, .modal-editItinerary {
+    background: #fefefe;
+    padding: 20px;
+    border-radius: 5px;
+    max-width: 500px;
+    width: 100%;
+    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.error-messages {
+    min-height: 30px;
+    color: red;
+    margin-bottom: 10px;
+}
+
+.error-text {
+margin: 0;
+padding: 0;
+}

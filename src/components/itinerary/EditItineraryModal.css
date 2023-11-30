@@ -1,26 +1,4 @@
 /* /src/components/itinerary/utilities/ConfirmationModal.css */
-.modal-overlay-editItinerary {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.75);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-.modal-editItinerary {
-background: #fefefe;
-padding: 20px;
-border-radius: 4px;
-max-width: 500px;
-width: 100%;
-z-index: 1001;
-}
-
 .editItinerary-info {
 display: flex;
 align-items: center;
@@ -42,6 +20,7 @@ position:relative;
   padding: 0;
 }
 
+/*
 .button {
 padding: 10px 20px;
 background-color: #3498db;
@@ -57,4 +36,30 @@ margin: 30px 10px 0px 10px;
 
 .button:hover {
 background-color: #2671a3;
+}
+*/
+
+.button-style {
+  /*background-color: #007bff;*/
+  background-color:   #1eb8ff; ;
+  border: none;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+  font-size: 1rem;
+  margin: 5px;
+  width: auto;
+}
+
+.button-style:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.button-style:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }

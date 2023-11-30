@@ -3,7 +3,14 @@
 /* Customize the navigation bar background */
 .navbar {
     background-color: #0056b3; /* Darker shade of #007bff */
-    padding: 0.5rem 1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect */
+    padding: 0.5rem 1rem; /* Adds space around the content */
+    transition: box-shadow 0.3s;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 20px;
+    margin-right: 20px
+    ;
   }
   
   /* Brand styling */
@@ -110,12 +117,6 @@
 .navbar button:active {
   transform: translateY(1px); /* Slightly depress the button when clicked */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Less shadow effect when active/clicked */
-}
-
-/* Style for the navigation bar itself */
-.navbar {
-  /* ... existing styles ... */
-  transition: box-shadow 0.3s;
 }
 
 /* Hover effect for the navigation bar */

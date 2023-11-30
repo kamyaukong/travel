@@ -1,65 +1,111 @@
-/* UserRegForm.css */
-.UserRegForm {
-    max-width: 400px;
-    margin: auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+/* Logon Form Container */
+.logon-form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+}
+
+/* Logon Form Styling */
+.UserLogonForm {
+  display: flex;
+  flex-direction: column; /* Stack the children vertically */
+  padding: 2rem;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px; /* Adjust the width as needed */
+  margin-top: -50px; /* Adjust this value to move the form up */
+}
+
+/* Input Field Styling */
+.UserLogonForm input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  box-shadow: none;
+  box-sizing: border-box;
+  font-size: 1rem;
+}
+
+/* Adjusts the placeholder color */
+.UserLogonForm input::placeholder {
+  color: #aaa;
+}
+
+/* Button Styling */
+.button-style {
+  background-color: #1eb8ff;
+  border: none;
+  color: #fff;
+  padding: 15px 20px;
+  border-radius: 30px; /* More rounded corners for the button */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+  font-size: 1.2rem; /* Bigger font size for button text */
+  margin: 5px;
+  width: 100%; /* Full width button */
+  box-sizing: border-box;
+}
+
+.button-style:hover {
+  background-color: #0da3e0;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.button-style:active {
+  background-color: #0c7ca5;
+  transform: translateY(1px);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+  .logon-form-container {
+    padding: 1rem;
   }
-  
-  h1 {
-    text-align: center;
+
+  .logon-form {
+    padding: 1rem;
   }
-  
-  form {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  label {
-    margin-bottom: 8px;
-  }
-  
-  input,
-  select,
-  button {
-    margin-bottom: 15px;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-  }
-  
-  button {
-    background-color: #4caf50; /* Green */
-    color: white;
+
+  .button-style {
     padding: 10px 15px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 5px;
-    border: none;
   }
-  
-  button:disabled {
-    background-color: #ddd;
-    cursor: not-allowed;
-  }
-  
-  .statusMessage {
-    padding: 10px;
-    border-radius: 5px;
-    color: white;
-    font-weight: bold;
-  }
-  
-  .statusMessage.E {
-    background-color: #ff5555; /* Red */
-  }
-  
-  .statusMessage.I {
-    background-color: #4caf50; /* Green */
-  }
-  
+}
+
+.statusMessage-container {
+  height: 50px; /* Reserve enough height for the message */
+  min-height: 50px; /* Ensure it does not collapse completely */
+  margin-bottom: 1rem; /* Space below the message area */
+  display: flex;
+  align-items: center; /* Center the message vertically */
+  justify-content: center; /* Center the message horizontally */
+  overflow: hidden; /* Hide the overflow */
+}
+
+/* Status message styling */
+.statusMessage {
+  transition: transform 0.3s, opacity 0.3s; /* Smooth transition for the message appearance */
+  transform: translateY(-100%); /* Initially hide the message */
+  opacity: 0; /* Make the message transparent */
+  height: 100%; /* Take the full height of the container */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color:red;
+  /* ... Other styles like background-color, color, padding, etc. ... */
+}
+
+/* When a message is present, adjust the transform and opacity to show it */
+.statusMessage.active {
+  transform: translateY(0);
+  opacity: 1;
+}

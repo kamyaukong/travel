@@ -6,7 +6,7 @@ import { AuthContext } from '../../routers/Authentication';
 import FormGenerator from "../common/FormGenerator";
 import callApi from "../../routers/api";
 
-// import "./UserLogon.css";
+import "./UserLogon.css";
 
 const UserLogon = () => {
   const [logonData, setValues] = useState({
@@ -15,7 +15,7 @@ const UserLogon = () => {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [statusMessage, setStatusMessage] = useState({ message: "", type: "" });
+  const [statusMessage, setStatusMessage] = useState("");
   const { login, setUserID } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -30,11 +30,8 @@ const UserLogon = () => {
       const data = await callApi(`/users/logon`, 'POST', logonData);
       console.log("Logon data: ", data);
       if (!data) {
-        setIsSubmitting(false);
-        setStatusMessage({
-          message: data.message || "Invalid credentials",
-          type: "E",
-        });
+          setIsSubmitting(false);
+          setStatusMessage("");
       } else {
         // Save token to local storage
         const receivedToken = data.token;
@@ -46,18 +43,13 @@ const UserLogon = () => {
     } catch (error) {
       console.error("Error during logon: ", error);
       setIsSubmitting(false);
-      setStatusMessage({ message: "System error: " + error.message, type: "E" });
+      setStatusMessage("System error: " + error.message);
     }
   };
 
-  /*
-  const handleRegisterClick = () => {
-    // Redirect to the register URL
-    navigate("/register");
-  };
-  */
   return (
-    <div className="UserLoginForm">
+    <div className="logon-form-container">
+    <div className="UserLogonForm">
       <form onSubmit={handleSubmit}>
         <h1>Logon</h1>
         <FormGenerator
@@ -65,15 +57,18 @@ const UserLogon = () => {
                 schemaIdentifier={'logon'}
                 handleChange={handleChange}
         />
-        <button type="submit" disabled={isSubmitting}>
+        <button type="submit" className="button-style" disabled={isSubmitting}>
           Logon
         </button>
-        {statusMessage.message && (
-          <div className={`statusMessage ${statusMessage.type}`} >
-          {statusMessage.message}
-          </div>
-        )}
+        <div className="statusMessage-container">
+          {statusMessage.message && (
+            <div className="statusMessage">
+              {statusMessage.message? statusMessage.message: ""}
+            </div>
+          )}
+        </div>
       </form>
+    </div>
     </div>
   );
 };

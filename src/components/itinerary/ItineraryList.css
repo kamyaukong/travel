@@ -9,6 +9,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Adjust column width as needed */
   gap: 20px; /* Space between items */
+  margin-left:20px;
 }
 
 .trip-box {
@@ -45,6 +46,7 @@
   font-size: 1rem; /* Adjust the font size as needed */
   cursor: pointer; /* Changes the cursor to indicate clickability */
   transition: background-color 0.3s, transform 0.3s; /* Transition for smooth color and transform change */
+  margin-left:20px;
 }
 
 .create-trip-button button:hover {
