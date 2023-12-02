@@ -36,8 +36,9 @@ export const TripDetail = () => {
       const token = localStorage.getItem('token');
       // Check if the token exists
       if (token) {
-        const config = {'Authorization': `Bearer ${token}`};
-        callApi(`/itinerary/${id}`, 'GET', null, config)
+        // const config = {'Authorization': `Bearer ${token}`};
+        //        callApi(`/itinerary/${id}`, 'GET', null, config)
+        callApi(`/itinerary/${id}`, 'GET', null)
           .then(data => {
             const { mainDetails, items } = data;
             setItineraryHeader(mainDetails);
@@ -66,16 +67,32 @@ export const TripDetail = () => {
   }, [id]);
 
   // Modal for Delete Confirmation Message Box
-  const openDelModal = (index) => {
-    setItemToDelete({ index });
+  const openDelModal = (itemType, index) => {
+    setItemToDelete({ type: itemType, index });
     setIsModalDelOpen(true);
   };
 
   // Delete itinerary item using index number from the list
-  const deleteItem = (index) => {
-    const updatedItems = itineraryItems.filter((_, itemIndex) => itemIndex !== index);
-    setItineraryItems(updatedItems);
-    setIsDirty(true);
+  const handleDeleteItem = () => {
+    const { type, index } = itemToDelete;
+    const item = itineraryItems[index];
+
+    if(item && item._id) {
+      try {
+        // const token = localStorage.getItem('token');
+        // const config = {'Authorization': `Bearer ${token}`};
+        // callApi(`/itinerary/${id}/item/${type}/${item._id}`, 'DELETE', null, config);
+        callApi(`/itinerary/${id}/item/${type}/${item._id}`, 'DELETE', null);
+        // remove the item from the list
+        const updatedItems = itineraryItems.filter((_, itemIndex) => itemIndex !== index);
+        setItineraryItems(updatedItems);
+        // setIsDirty(true);
+
+      } catch (error) {
+        displayToast('Error deleting the item: ' + error.message, ' error.');
+      }
+    }
+
     setIsModalDelOpen(false);
   };
 
@@ -124,18 +141,21 @@ export const TripDetail = () => {
   // Post to API
   const saveChanges = async () => {
     try {
-      const token = localStorage.getItem('token');
       const updateData = { ...itineraryHeader, items: itineraryItems };
-      const config = {'Authorization': `Bearer ${token}`}
+      // const token = localStorage.getItem('token');
+      // const config = {'Authorization': `Bearer ${token}`}
       if (id === 'new') {
         //await axios.post(`${process.env.REACT_APP_API_URL}/itinerary`, updateData, config);
-        await callApi('/itinerary', 'POST', updateData, config);
+        // await callApi('/itinerary', 'POST', updateData, config);
+        await callApi('/itinerary', 'POST', updateData);
       } else {
         // await axios.put(`${process.env.REACT_APP_API_URL}/itinerary/${id}`, updateData, config);
-        await callApi(`/itinerary/${id}`, 'PUT', updateData, config);
+        //await callApi(`/itinerary/${id}`, 'PUT', updateData, config);
+        await callApi(`/itinerary/${id}`, 'PUT', updateData);
       }
       setIsDirty(false);
       displayToast('Record has been saved', 'warning');
+      handleBackClick();
     } catch (error) {
       // Handle error
       displayToast('Error saving the changes' + error, 'warning');
@@ -146,18 +166,6 @@ export const TripDetail = () => {
     return <div>Seems system hit an issue when loading itinerary ...</div>;
   }
 
-  // Triggered reuseable component 'ItemFormController' to render item details
-  const renderItem = (item, index) => {
-    return (<><FormGenerator
-      item={item}
-      schemaIdentifier={item.type}
-      handleChange={(e) => handleInputChange(e, index)}
-    />
-    <div className="delete-icon" onClick={() => openDelModal(index)}>🗑️</div>
-    </>
-    )
-  }
-  // console.log(itineraryItems);
   // start render the whole page
   return (
     <div className="itinerary-detail">
@@ -176,7 +184,7 @@ export const TripDetail = () => {
         <button className="button-style" onClick={() => { setAddItemType('flight'); setIsModalAddItemOpen(true); }}>✈️</button>
         <button className="button-style" onClick={() => { setAddItemType('hotel'); setIsModalAddItemOpen(true); }}>🏨</button>
         <button className="button-style" onClick={() => { setAddItemType('activity'); setIsModalAddItemOpen(true); }}>🎉</button>
-        {isDirty && <button className="button-style" onClick={saveChanges} style={{float: 'right'}}>Save</button>}
+        {isDirty && <button className="button-style" onClick={saveChanges} style={{float: 'right'}}>Save and Close</button>}
       </div>
       {/* Loop all itinerary items and use reuseable component 'ItemFormController' to render details */}
       <div className="itinerary-items-container">
@@ -184,7 +192,15 @@ export const TripDetail = () => {
           <div>
               <p>No items yet. Use icon above to add flights, hotels, or activities to your trip.</p>
           </div>
-          ) : (itineraryItems.map((item, index) => (renderItem(item, index))))
+          ) : (itineraryItems.map((item, index) => (<>
+                <FormGenerator
+                  item={item}
+                  schemaIdentifier={item.type}
+                  handleChange={(e) => handleInputChange(e, index)}
+                  onDelete={() => openDelModal(item.type, index)}
+                  deleteIconClassName="delete-icon"
+                />
+          </>)))
         }
       </div>
       {/* Modals - define popup windows*/}
@@ -206,7 +222,7 @@ export const TripDetail = () => {
       <ConfirmationModal 
         isOpen={isModalDelOpen} 
         onRequestClose={() => setIsModalDelOpen(false)} 
-        onConfirm={() => deleteItem(itemToDelete.index)}
+        onConfirm={handleDeleteItem}
         message="Are you sure you want to delete this item?"
       />
       {/*   General message box to display a message for 3 seconds */}

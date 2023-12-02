@@ -6,7 +6,7 @@ import { SCHEMAS } from './FormGeneratorSchema';
 
 // import './DynamicForm.css';
 
-export default function FormGenerator ({ item, schemaIdentifier, handleChange }) {
+export default function FormGenerator ({ item, schemaIdentifier, handleChange, onDelete, deleteIconClassName }) {
   const schema = SCHEMAS[schemaIdentifier];
   if (!schema) {
       console.error(`Schema not found for identifier: ${schemaIdentifier}`);
@@ -32,6 +32,11 @@ export default function FormGenerator ({ item, schemaIdentifier, handleChange })
             </label>
           )
         })}
+        {onDelete && (
+          <div className={deleteIconClassName || "delete-icon"} onClick={() => onDelete(item.id)}>
+            🗑️
+          </div>
+        )}
       </div>
     </div>
   );

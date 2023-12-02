@@ -4,7 +4,6 @@ import ReactModal from 'react-modal';
 import validationRules from '../common/validationRules';
 import FormGenerator from '../common/FormGenerator';
 
-// import './EditItineraryModal.css';
 import './Modal.css'
 
 export const EditItineraryModal = ({ isOpen, item, onSave, onRequestClose }) => {

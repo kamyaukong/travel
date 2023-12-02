@@ -1,11 +1,37 @@
 // /src/itinerary/AddItemModal.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactModal from 'react-modal';
 import FormGenerator from '../common/FormGenerator';
 import validationRules from '../common/validationRules';
+import { SCHEMAS } from '../common/FormGeneratorSchema';
 
 export const AddItemModal = ({ isOpen, itemType, onAddItem, onRequestClose }) => {
-  const [itemToAdd, setNewItem] = useState({});
+
+  // Generate initial form state based on the schema
+  const createInitialState = (schemaIdentifier) => {
+    console.log('schemaIdentifier', schemaIdentifier);
+    console.log('SCHEMAS', SCHEMAS);
+    console.log('itemType', itemType );
+    if (!schemaIdentifier || !SCHEMAS[schemaIdentifier]) {
+      return {};
+    } 
+    const fields = SCHEMAS[schemaIdentifier].fields;
+    const initialState = {};
+    fields.forEach(field => {
+      initialState[field.name] = field.defaultValue || '';
+    });
+    return initialState;
+  };
+
+  // Set the itemToAdd state to the initial values based on the current itemType
+  useEffect(() => {
+    if (isOpen) {
+      setNewItem(createInitialState(itemType));
+    }
+  }, [itemType, isOpen]); // Depend on itemType and isOpen
+
+  // const [itemToAdd, setNewItem] = useState({});
+  const [itemToAdd, setNewItem] = useState(createInitialState(itemType));
   const [errors, setErrors] = useState([]);
 
   // update user input to fields

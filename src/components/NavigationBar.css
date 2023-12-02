@@ -5,6 +5,7 @@
     background-color: #0056b3; /* Darker shade of #007bff */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect */
     padding: 0.5rem 1rem; /* Adds space around the content */
+    border-radius: 8px; /* Rounded corners */
     transition: box-shadow 0.3s;
     margin-top: 5px;
     margin-bottom: 5px;

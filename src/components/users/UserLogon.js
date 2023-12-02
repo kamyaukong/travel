@@ -41,34 +41,39 @@ const UserLogon = () => {
         navigate(`/itinerary`);
       }
     } catch (error) {
-      console.error("Error during logon: ", error);
-      setIsSubmitting(false);
-      setStatusMessage("System error: " + error.message);
+      if(error.status === 401) {
+        setIsSubmitting(false);
+        setStatusMessage("Invalid user ID or password");
+      } else {
+        console.error("Error during logon: ", error.message);
+        setIsSubmitting(false);
+        setStatusMessage("System error: " + error.message);
+      }
     }
   };
 
   return (
     <div className="logon-form-container">
-    <div className="UserLogonForm">
-      <form onSubmit={handleSubmit}>
-        <h1>Logon</h1>
-        <FormGenerator
-                item={logonData}
-                schemaIdentifier={'logon'}
-                handleChange={handleChange}
-        />
-        <button type="submit" className="button-style" disabled={isSubmitting}>
-          Logon
-        </button>
-        <div className="statusMessage-container">
-          {statusMessage.message && (
-            <div className="statusMessage">
-              {statusMessage.message? statusMessage.message: ""}
-            </div>
-          )}
-        </div>
-      </form>
-    </div>
+      <div className="UserLogonForm">
+        <form onSubmit={handleSubmit}>
+          <h1>Logon</h1>
+          <FormGenerator
+                  item={logonData}
+                  schemaIdentifier={'logon'}
+                  handleChange={handleChange}
+          />
+          <button type="submit" className="button-style" disabled={isSubmitting}>
+            Logon
+          </button>
+          <div className="statusMessage-container">
+            {statusMessage && (
+              <div className="statusMessage active">
+                {statusMessage? statusMessage: ""}
+              </div>
+            )}
+          </div>
+        </form>
+      </div>
     </div>
   );
 };
