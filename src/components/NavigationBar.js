@@ -26,7 +26,7 @@ const NavigationBar = () => {
         <Nav className="ml-auto">
           { isAuthenticated ? (
             <>
-              <Nav.Link href="#">{'User:' + userID}</Nav.Link>
+              <Nav.Link className='user_name' href="#">{'User:' + userID}</Nav.Link>
               <Button variant="outline-primary" onClick={handleLogout}>Logout</Button>
             </>
           ) : (

@@ -92,7 +92,7 @@
 }
 
 /* Status message styling */
-.statusMessage {
+.logonStatusMessage {
   transition: transform 0.3s, opacity 0.3s; /* Smooth transition for the message appearance */
   transform: translateY(-100%); /* Initially hide the message */
   opacity: 0; /* Make the message transparent */
@@ -105,7 +105,7 @@
 }
 
 /* When a message is present, adjust the transform and opacity to show it */
-.statusMessage.active {
+.logonStatusMessage.active {
   transform: translateY(0);
   opacity: 1;
 }

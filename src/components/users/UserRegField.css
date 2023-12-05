@@ -1,31 +1,53 @@
-.UserRegField{
-    display: flex;
-    flex-direction: column;
-    width:100%;
+.UserRegField {
+    margin-bottom: 1rem; /* Space between each field */
 }
 
-.inputLabels{
-    font-size: 13px;
-    color:gray;
+.inputLabels {
+    display: block; /* Make the label a block element to appear on its own line */
+    margin-bottom: 0.5rem; /* Space below the label */
+    font-size: 1rem; /* Font size for the label */
+    color: #333333; /* Dark grey color for the label text */
 }
 
-.inputFields{
-    padding: 15px;
-    max-width: 100%;
-    border-radius: 5px;
-    border: 1px solid grey;
+.inputFields {
+    width: 100%; /* Make the input field expand the full width of its parent */
+    padding: 10px; /* Add some padding inside the input field */
+    font-size: 16px; /* Increase font size */
+    border: none; /* Remove the border */
+    outline: none; /* Remove the outline to avoid the default focus styles */
+    transition: border-color 0.3s ease; /* Smooth transition for the border color */
+    border-bottom: 1px solid #007bff; /* Border at the bottom */
+    outline: none; /* No outline */
+    transition: border-color 0.3s, box-shadow 0.3s; /* Smooth transition for border and shadow */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.inputFields:focus {
+    border-bottom-color: #0056b3; /* Darken the border color on focus */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Slightly stronger shadow on focus */
 }
 
 .errorMessages {
-    max-width: 100%;
-    overflow: auto;
-    word-wrap: break-word;
-    font-size: 12px;
+    color: #dc3545; /* Bootstrap danger red for error messages */
+    font-size: 0.875rem; /* Smaller font size for error messages */
+    height: 20px; /* Set a fixed height for layout consistency */
+    visibility: hidden; /* Hide by default */
+    transition: visibility 0.3s ease; /* Smooth transition */
 }
 
-span{
-    font-size: 12px;
-    padding: 3px;
-    color: red;
-    display:none;
+.UserRegField .errorMessages[data-show="true"] {
+    visibility: visible;
 }
+
+/*
+.UserRegField .errorMessages[data-show="false"] {
+    visibility: hidden;
+}
+*/
+
+/*
+.UserRegField input:focus + .errorMessages,
+.UserRegField input:invalid + .errorMessages {
+    visibility: visible;
+}
+*/

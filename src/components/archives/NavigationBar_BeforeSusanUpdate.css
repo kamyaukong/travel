@@ -5,11 +5,12 @@
     background-color: #0056b3; /* Darker shade of #007bff */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect */
     padding: 0.5rem 1rem; /* Adds space around the content */
+    border-radius: 8px; /* Rounded corners */
     transition: box-shadow 0.3s;
-    /* margin-top: 2px; */
+    margin-top: 5px;
     margin-bottom: 5px;
     margin-left: 20px;
-    margin-right: 20px;
+    margin-right: 20px
     ;
   }
   
@@ -33,26 +34,15 @@
   
   /* Button customization */
   .btn-outline-primary {
-    color: #121212;
+    color: #f8f9fa;
+    border-color: #f8f9fa;
     margin-left: 1rem; /* Adds space before the button */
-    font-size: medium;
-    border-radius: 5px;
-    transition: background-color 2s, height 4s;
-    padding: 5px;
-    margin-right:10px;
-    font-weight: 500;
-    margin-bottom: 10px;
   }
   
   .btn-outline-primary:hover {
-    color: #fdfeff;
-    background-color: #3e9bf9;
-    border-color:#3e9bf9 ;
-    box-shadow: 10px 10px  #121111;
-  }
-
-  .user_name{
-    font-weight: 400;
+    color: #0056b3;
+    background-color: #f8f9fa;
+    border-color: #f8f9fa;
   }
   
   /* User label styling */
@@ -71,7 +61,6 @@
     .btn-outline-primary {
       margin-right: 0.5rem;
       margin-left: 0.5rem;
-      color: black;
     }
   
     .navbar-brand {

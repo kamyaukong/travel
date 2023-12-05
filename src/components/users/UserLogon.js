@@ -67,7 +67,7 @@ const UserLogon = () => {
           </button>
           <div className="statusMessage-container">
             {statusMessage && (
-              <div className="statusMessage active">
+              <div className="logonStatusMessage active">
                 {statusMessage? statusMessage: ""}
               </div>
             )}

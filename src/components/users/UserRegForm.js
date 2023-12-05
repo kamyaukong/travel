@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import UserRegField from "./UserRegField"
 import callApi from "../../routers/api";
 
+import './UserRegForm.css';
+
 const UserRegForm = () => {
     // Form field variables
     const [formValues, setFormValues] = useState({
@@ -39,16 +41,8 @@ const UserRegForm = () => {
             label:"eMail",
             required: true,
             errorMessage: "Need a valid eMail address",
-        }
-        ,{
+        },{
             id:3,
-            name: "dob",
-            type: "date",
-            placeholder:"Date of Birth",
-            label:"Date of Birth",
-        }
-        ,{
-            id:4,
             name: "password",
             type: "password",
             placeholder:"Password",
@@ -58,7 +52,7 @@ const UserRegForm = () => {
             errorMessage: "8-20 characters: at least 1 letter, 1 number, and 1 special character",
         }
         ,{
-            id:5,
+            id:4,
             name: "verifypassword",
             type: "password",
             placeholder:"Verify Password",
@@ -107,6 +101,11 @@ const UserRegForm = () => {
         setFormValues({...formValues, [e.target.name]: e.target.value})
     }
 
+    // Cancel button handler
+    const handleCancel = () => {
+        navigate('/'); // Navigates to the main screen (root path)
+    };
+
     // Finally, render the form
     return(
         <div className="UserRegForm">
@@ -118,7 +117,10 @@ const UserRegForm = () => {
                         onChange={onChange}>
                     </UserRegField>
                 ))}
-                <button disabled={isSubmitting}>Submit</button>
+                <div className="form-buttons">
+                    <button onClick={handleCancel}>Cancel</button>
+                    <button disabled={isSubmitting}>Submit</button>
+                </div>
                 {statusMessage.message && (
                     <div className={`statusMessage ${statusMessage.type}`}
                         style={{

@@ -1,55 +1,74 @@
 .UserRegForm {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 80vh;
-    width: 50vw;
+    max-width: 500px; /* Set a max-width for the form */
+    margin: auto; /* Center the form on the page */
+    padding: 2rem; /* Add some padding around the form */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow to lift the form off the page */
+    background: #ffffff; /* Set a white background */
+    border-radius: 8px; /* Optional: rounded corners */
 }
 
-h1{
-    color:rgb(77,1,77);
-    text-align: center;
+.UserRegForm h1 {
+    text-align: center; /* Center the title */
+    font-size: 2rem; /* Larger font size for the title */
+    color: #333333; /* Dark grey color for the text */
+    margin-bottom: 1.5rem; /* Space below the title */
 }
 
-form{
-    background-color: white;
-    padding: 0px 10px;
-    border-radius: 10px;
+.UserRegForm button {
+    width: 100%; /* Make the button expand the full width of the form */
+    padding: 10px; /* Add some padding to increase the button's size */
+    font-size: 1rem; /* Set the font size for the button */
+    color: #ffffff; /* White text color */
+    background-color: #007bff; /* Bootstrap primary blue */
+    border: none; /* Remove the border */
+    border-radius: 4px; /* Slightly rounded corners for the button */
+    margin-top: 1rem; /* Space above the button */
+    cursor: pointer; /* Change the cursor to indicate the button is clickable */
+    transition: background-color 0.3s ease; /* Transition for a smooth color change */
 }
 
-button{
-    width: 100%;
-    height: 50px;
-    padding: 10px;
-    border: none;
-    background-color: rebeccapurple;
-    color:white;
-    border-radius: 5px;
-    font-weight: bold;
-    font-size: 18px;
-    cursor: pointer;
-    margin-top: 15px;
-    margin-bottom: 15px;
+.UserRegForm button:hover {
+    background-color: #0056b3; /* Darken the button color on hover for a visual feedback */
 }
 
-input:invalid[focused="true"]{
-    border: 1px solid red;
+.UserRegForm button:disabled {
+    background-color: #cccccc; /* Light grey color to indicate the button is disabled */
+    cursor: not-allowed; /* Change the cursor to indicate the button is not clickable */
 }
 
-input:invalid[focused="true"] ~ div span{
-    display: block;
+.UserRegForm .statusMessage {
+    padding: 10px; /* Add padding inside the status message */
+    color: #ffffff; /* White text color */
+    text-align: center; /* Center the text */
+    border-radius: 4px; /* Rounded corners for the status message */
+    margin-top: 1rem; /* Space above the status message */
 }
 
-button:disabled {
-    background-color: #a59da5;
-    opacity: 0.6;
+.UserRegForm .statusMessage.E {
+    background-color: #dc3545;
 }
+
+.UserRegForm .statusMessage.I {
+    background-color: #28a745;
+}
+
 
 .statusMessage {
     margin-top: 15px;
     padding: 10px;
     border-radius: 5px;
     text-align: center;
-    color: white;
+    color: black;
     background-color: green;
+}
+
+.form-buttons {
+    display: flex; /* Use Flexbox */
+    justify-content: space-between; /* Space out the buttons */
+    gap: 10px; /* Gap between the buttons */
+}
+
+/* Optional: If you want the buttons to have the same width */
+.form-buttons button {
+    flex: 1; /* Each button will take equal space */
 }

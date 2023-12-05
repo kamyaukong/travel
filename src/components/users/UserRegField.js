@@ -1,11 +1,11 @@
 // import "./UserRegField.css";
 import { useState } from "react";
-
+import './UserRegField.css';
 const UserRegField = (props) => {
     const {label, errorMessage, onChange, id, ...inputProps} = props;
     const [focused, setFocused] = useState(false);
-    const handleFocus = (e) => {
-        setFocused(true);
+    const handleBlur = (e) => {
+        setFocused(!e.target.validity.valid);
     }
 
     return (
@@ -13,14 +13,14 @@ const UserRegField = (props) => {
             <label className="inputLabels">{label}</label>
             <input className="inputFields" {...inputProps} 
                 onChange={onChange} 
-                onBlur={handleFocus} 
+                onBlur={handleBlur} 
                 onFocus={() => inputProps.name === "verifypassword" && setFocused(true)} 
-                focused={focused.toString()}
+                data-focused={focused.toString()}
                 >
             </input>
-            <div className="errorMessages">
-                <span>{errorMessage}</span>
-            </div>
+            <span className="errorMessages" data-show={focused ? "true" : "false"}>
+                {errorMessage}
+            </span>
         </div>
     )
 }
